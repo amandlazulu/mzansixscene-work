@@ -144,6 +144,28 @@
     <div id="container-9e1b86bea911dbaea20ee820fbf00236"></div>
   </div>
 
+  <!-- Videos Section -->
+  <div class="media-section">
+    <h2>Videos - Page <span class="video-page">1</span></h2>
+    <div class="media-grid" id="video-page1">
+      <iframe src="https://drive.google.com/file/d/1jGzgsQpUuBPIyn0x8Tc4S5LH4HRNx4Ay/preview" allowfullscreen></iframe>
+      <iframe src="https://drive.google.com/file/d/1O8_lTLvp4JPMFU2K4V-IZHnp7hNgAwOk/preview" allowfullscreen></iframe>
+      <iframe src="https://drive.google.com/file/d/1vwgL0n2BGZlLZk5BxtUbh5TnH5VeGeD9/preview" allowfullscreen></iframe>
+      <iframe src="https://drive.google.com/file/d/1dJcoRKxoBUkhU1F2hJU3xoRWFGRUlgqc/preview" allowfullscreen></iframe>
+      <iframe src="https://drive.google.com/file/d/1fY4guTxRYzyfQKMgXkyVLiPzm8ggIv1d/preview" allowfullscreen></iframe>
+      <iframe src="https://drive.google.com/file/d/1sehTtYQsrzbggTUjv_GVir1aPt67jHCG/preview" allowfullscreen></iframe>
+    </div>
+    <div class="media-grid" id="video-page2" style="display:none">
+      <iframe src="https://drive.google.com/file/d/1-L1D6-7TmYTGzx4Bns2G9hWBhyrOziS2/preview" allowfullscreen></iframe>
+      <iframe src="https://drive.google.com/file/d/1TgNz7zAJYnbkWexi0yPG8QR_Vd7FLc0a/preview" allowfullscreen></iframe>
+    </div>
+    <div class="nav-btns">
+      <button id="video-prev" disabled>Previous</button>
+      <span class="page-indicator">1/2</span>
+      <button id="video-next">Next</button>
+    </div>
+  </div>
+
   <!-- In-Between Ad -->
   <div class="ad-container">
     <script type="text/javascript">
@@ -158,20 +180,21 @@
     <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
   </div>
 
+  <!-- Pictures Section -->
   <div class="media-section">
     <h2>Pictures - Page <span class="pic-page">1</span></h2>
     <div class="media-grid" id="pic-page1">
       <div class="image-container">
-        <img src="https://drive.google.com/thumbnail?id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t&sz=w1000" alt="Picture 1" onclick="openViewer('https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t', 'Picture 1')">
+        <img src="https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t" alt="Picture 1" onclick="openViewer(this.src, 'Picture 1')">
       </div>
       <div class="image-container">
-        <img src="https://drive.google.com/thumbnail?id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH&sz=w1000" alt="Picture 2" onclick="openViewer('https://drive.google.com/uc?export=view&id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH', 'Picture 2')">
+        <img src="https://drive.google.com/uc?export=view&id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH" alt="Picture 2" onclick="openViewer(this.src, 'Picture 2')">
       </div>
       <div class="image-container">
-        <img src="https://drive.google.com/thumbnail?id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR&sz=w1000" alt="Picture 3" onclick="openViewer('https://drive.google.com/uc?export=view&id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR', 'Picture 3')">
+        <img src="https://drive.google.com/uc?export=view&id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR" alt="Picture 3" onclick="openViewer(this.src, 'Picture 3')">
       </div>
       <div class="image-container">
-        <img src="https://drive.google.com/thumbnail?id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t&sz=w1000" alt="Picture 4" onclick="openViewer('https://drive.google.com/uc?export=view&id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t', 'Picture 4')">
+        <img src="https://drive.google.com/uc?export=view&id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t" alt="Picture 4" onclick="openViewer(this.src, 'Picture 4')">
       </div>
     </div>
     <div class="nav-btns">
@@ -209,28 +232,56 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js"></script>
   <script>
+    // Video pagination
+    let currentVideoPage = 1;
+    const totalVideoPages = 2;
+    const videoPrevBtn = document.getElementById('video-prev');
+    const videoNextBtn = document.getElementById('video-next');
+    const videoPageIndicator = document.querySelector('.video-page');
+
+    function updateVideoPage() {
+      document.getElementById('video-page1').style.display = currentVideoPage === 1 ? 'grid' : 'none';
+      document.getElementById('video-page2').style.display = currentVideoPage === 2 ? 'grid' : 'none';
+      
+      videoPrevBtn.disabled = currentVideoPage === 1;
+      videoNextBtn.disabled = currentVideoPage === totalVideoPages;
+      
+      videoPageIndicator.textContent = currentVideoPage;
+      document.querySelector('.nav-btns .page-indicator').textContent = `${currentVideoPage}/${totalVideoPages}`;
+    }
+
+    videoPrevBtn.addEventListener('click', () => {
+      if (currentVideoPage > 1) {
+        currentVideoPage--;
+        updateVideoPage();
+      }
+    });
+
+    videoNextBtn.addEventListener('click', () => {
+      if (currentVideoPage < totalVideoPages) {
+        currentVideoPage++;
+        updateVideoPage();
+      }
+    });
+
     // Image viewer functionality
     let viewerInstance = null;
     const images = [
       { 
-        thumb: 'https://drive.google.com/thumbnail?id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t&sz=w1000',
-        full: 'https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t',
-        alt: 'Picture 1'
+        src: "https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t", 
+        alt: "Picture 1" 
       },
       { 
-        thumb: 'https://drive.google.com/thumbnail?id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH&sz=w1000',
-        full: 'https://drive.google.com/uc?export=view&id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH',
-        alt: 'Picture 2'
+        src: "https://drive.google.com/uc?export=view&id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH", 
+        alt: "Picture 2" 
       },
       { 
-        thumb: 'https://drive.google.com/thumbnail?id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR&sz=w1000',
-        full: 'https://drive.google.com/uc?export=view&id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR',
-        alt: 'Picture 3'
+        src: "https://drive.google.com/uc?export=view&id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR", 
+        alt: "Picture 3" 
       },
       { 
-        thumb: 'https://drive.google.com/thumbnail?id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t&sz=w1000',
-        full: 'https://drive.google.com/uc?export=view&id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t',
-        alt: 'Picture 4'
+        src: "https://drive.google.com/uc?export=view&id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t", 
+        alt: "Picture 4" 
       }
     ];
 
@@ -239,6 +290,7 @@
       const viewerImg = document.getElementById('viewer-image');
       const caption = document.getElementById('image-caption');
       
+      // Use direct Google Drive URL for viewing
       viewerImg.src = src;
       caption.textContent = alt;
       viewer.style.display = 'block';
@@ -267,7 +319,7 @@
       }
       
       // Show the clicked image
-      const index = images.findIndex(img => img.full === src);
+      const index = images.findIndex(img => img.src === src);
       if (index !== -1) {
         viewerInstance.view(index);
       }
@@ -310,13 +362,8 @@
       };
     });
 
-    // Preload images for better viewer experience
-    window.addEventListener('load', () => {
-      images.forEach(img => {
-        const preload = new Image();
-        preload.src = img.full;
-      });
-    });
+    // Initialize video pagination
+    updateVideoPage();
   </script>
 </body>
 </html>
