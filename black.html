@@ -172,22 +172,43 @@
   </div>
 
   <!-- Pictures Section -->
-<div class="media-grid">
-  <div class="image-container">
-    <img src="https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t" 
-         alt="Picture 1" 
-         onclick="openViewer('https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t')">
+<div class="media-section">
+  <h2>Pictures - Page <span class="pic-page">1</span></h2>
+  <div class="media-grid" id="pic-page1">
+    <div class="image-container">
+      <img src="https://drive.google.com/thumbnail?id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t&sz=w1000" 
+           alt="Picture 1" 
+           onclick="openViewer('https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t')">
+    </div>
+    <div class="image-container">
+      <img src="https://drive.google.com/thumbnail?id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH&sz=w1000" 
+           alt="Picture 2" 
+           onclick="openViewer('https://drive.google.com/uc?export=view&id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH')">
+    </div>
+    <div class="image-container">
+      <img src="https://drive.google.com/thumbnail?id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR&sz=w1000" 
+           alt="Picture 3" 
+           onclick="openViewer('https://drive.google.com/uc?export=view&id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR')">
+    </div>
   </div>
-  <div class="image-container">
-    <img src="https://drive.google.com/uc?export=view&id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH" 
-         alt="Picture 2" 
-         onclick="openViewer('https://drive.google.com/uc?export=view&id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH')">
+  <div class="media-grid" id="pic-page2" style="display:none">
+    <div class="image-container">
+      <img src="https://drive.google.com/thumbnail?id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t&sz=w1000" 
+           alt="Picture 4" 
+           onclick="openViewer('https://drive.google.com/uc?export=view&id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t')">
+    </div>
   </div>
-  <div class="image-container">
-    <img src="https://drive.google.com/uc?export=view&id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR" 
-         alt="Picture 3" 
-         onclick="openViewer('https://drive.google.com/uc?export=view&id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR')">
+  <div class="nav-btns">
+    <button id="pic-prev" disabled>Previous</button>
+    <span class="page-indicator">1/2</span>
+    <button id="pic-next">Next</button>
   </div>
+</div>
+
+<!-- Image Viewer -->
+<div id="image-viewer">
+  <span class="close-viewer" onclick="closeViewer()">&times;</span>
+  <img id="viewer-image" src="" alt="">
 </div>
 
   <!-- Bottom Ad -->
