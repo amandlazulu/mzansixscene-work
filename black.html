@@ -171,8 +171,7 @@
     <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
   </div>
 
-# Pictures Section
-
+<!-- Pictures Section -->
 <div class="media-grid" id="pic-page1">
   <div class="image-container">
     <img src="https://drive.google.com/thumbnail?id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t&sz=w1000" 
@@ -204,8 +203,8 @@
 </div>
 
 <script>
-  function openViewer(url) {
-    const viewer = window.open(url, '_blank');
+  function openViewer(imageUrl) {
+    const viewer = window.open(imageUrl, '_blank');
     viewer.focus();
   }
 
@@ -218,8 +217,8 @@
   });
 
   document.getElementById('pic-prev').addEventListener('click', function() {
-    document.getElementById('pic-page1').style.display = 'block';
     document.getElementById('pic-page2').style.display = 'none';
+    document.getElementById('pic-page1').style.display = 'block';
     document.getElementById('pic-next').disabled = false;
     document.querySelector('.page-indicator').textContent = '1/2';
     this.disabled = true;
