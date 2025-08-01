@@ -178,24 +178,24 @@
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t&sz=w1000" 
            alt="Picture 1" 
-           data-fullsize="https://drive.google.com/uc?id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t">
+           data-fullsize="https://lh3.googleusercontent.com/d/1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH&sz=w1000" 
            alt="Picture 2" 
-           data-fullsize="https://drive.google.com/uc?id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH">
+           data-fullsize="https://lh3.googleusercontent.com/d/1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR&sz=w1000" 
            alt="Picture 3" 
-           data-fullsize="https://drive.google.com/uc?id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR">
+           data-fullsize="https://lh3.googleusercontent.com/d/15-HCr_7XOuHONimzmeItrS0PT-pY1UtR">
     </div>
   </div>
   <div class="media-grid" id="pic-page2" style="display:none">
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t&sz=w1000" 
            alt="Picture 4" 
-           data-fullsize="https://drive.google.com/uc?id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t">
+           data-fullsize="https://lh3.googleusercontent.com/d/1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t">
     </div>
   </div>
   <div class="nav-btns">
@@ -205,7 +205,7 @@
   </div>
 </div>
 
-<!-- Image Viewer - Add this right before </body> -->
+<!-- Image Viewer -->
 <div id="image-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; text-align:center;">
   <span style="position:absolute; top:20px; right:20px; color:white; font-size:30px; cursor:pointer;" onclick="hideImage()">×</span>
   <img id="fullsize-image" style="max-width:90%; max-height:90%; margin-top:5vh; border:2px solid hotpink;">
@@ -215,38 +215,38 @@
 // Click handler for images
 document.querySelectorAll('.image-container img').forEach(img => {
   img.addEventListener('click', function() {
-    const fullsizeUrl = this.getAttribute('data-fullsize');
-    showImage(fullsizeUrl);
+    showImage(this.dataset.fullsize);
   });
 });
 
 function showImage(url) {
   const viewer = document.getElementById('image-viewer');
-  const img = document.getElementById('fullsize-image');
+  const fullsizeImg = document.getElementById('fullsize-image');
   
   // Show loading state
-  img.src = '';
-  img.alt = 'Loading...';
   viewer.style.display = 'block';
+  fullsizeImg.src = '';
+  fullsizeImg.alt = 'Loading...';
   
-  // Load image
-  const tempImg = new Image();
-  tempImg.onload = function() {
-    img.src = url;
+  // Create test image to verify it loads
+  const testImg = new Image();
+  testImg.onload = function() {
+    fullsizeImg.src = url;
+    fullsizeImg.alt = 'Full size image';
   };
-  tempImg.onerror = function() {
-    img.src = '';
-    img.alt = 'Image not available';
+  testImg.onerror = function() {
+    fullsizeImg.src = '';
+    fullsizeImg.alt = 'Image not available - try opening in new tab';
     console.error('Failed to load image:', url);
   };
-  tempImg.src = url;
+  testImg.src = url;
 }
 
 function hideImage() {
   document.getElementById('image-viewer').style.display = 'none';
 }
 
-// Pagination (same as before)
+// Pagination
 let currentPicPage = 1;
 document.getElementById('pic-next').addEventListener('click', function() {
   if (currentPicPage < 2) {
