@@ -171,31 +171,31 @@
     <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
   </div>
 
-<!-- Pictures Section - REPLACE YOUR CURRENT IMAGES SECTION WITH THIS -->
+<!-- Pictures Section - REPLACE your current images section with this -->
 <div class="media-section">
   <h2>Pictures - Page <span class="pic-page">1</span></h2>
   <div class="media-grid" id="pic-page1">
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t&sz=w1000" 
            alt="Picture 1" 
-           onclick="showImage('https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t')">
+           data-fullsize="https://drive.google.com/uc?id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH&sz=w1000" 
            alt="Picture 2" 
-           onclick="showImage('https://drive.google.com/uc?export=view&id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH')">
+           data-fullsize="https://drive.google.com/uc?id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR&sz=w1000" 
            alt="Picture 3" 
-           onclick="showImage('https://drive.google.com/uc?export=view&id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR')">
+           data-fullsize="https://drive.google.com/uc?id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR">
     </div>
   </div>
   <div class="media-grid" id="pic-page2" style="display:none">
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t&sz=w1000" 
            alt="Picture 4" 
-           onclick="showImage('https://drive.google.com/uc?export=view&id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t')">
+           data-fullsize="https://drive.google.com/uc?id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t">
     </div>
   </div>
   <div class="nav-btns">
@@ -205,37 +205,57 @@
   </div>
 </div>
 
-<!-- Add this SIMPLE IMAGE VIEWER right before </body> -->
+<!-- Image Viewer - Add this right before </body> -->
 <div id="image-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; text-align:center;">
   <span style="position:absolute; top:20px; right:20px; color:white; font-size:30px; cursor:pointer;" onclick="hideImage()">×</span>
   <img id="fullsize-image" style="max-width:90%; max-height:90%; margin-top:5vh; border:2px solid hotpink;">
 </div>
 
 <script>
-// SIMPLE IMAGE VIEWER FUNCTIONS
+// Click handler for images
+document.querySelectorAll('.image-container img').forEach(img => {
+  img.addEventListener('click', function() {
+    const fullsizeUrl = this.getAttribute('data-fullsize');
+    showImage(fullsizeUrl);
+  });
+});
+
 function showImage(url) {
-  document.getElementById('fullsize-image').src = url;
-  document.getElementById('image-viewer').style.display = 'block';
-  document.body.style.overflow = 'hidden'; // Prevent scrolling
+  const viewer = document.getElementById('image-viewer');
+  const img = document.getElementById('fullsize-image');
+  
+  // Show loading state
+  img.src = '';
+  img.alt = 'Loading...';
+  viewer.style.display = 'block';
+  
+  // Load image
+  const tempImg = new Image();
+  tempImg.onload = function() {
+    img.src = url;
+  };
+  tempImg.onerror = function() {
+    img.src = '';
+    img.alt = 'Image not available';
+    console.error('Failed to load image:', url);
+  };
+  tempImg.src = url;
 }
 
 function hideImage() {
   document.getElementById('image-viewer').style.display = 'none';
-  document.body.style.overflow = 'auto'; // Re-enable scrolling
 }
 
-// PAGINATION CODE
+// Pagination (same as before)
 let currentPicPage = 1;
-const totalPicPages = 2;
-
 document.getElementById('pic-next').addEventListener('click', function() {
-  if (currentPicPage < totalPicPages) {
+  if (currentPicPage < 2) {
     document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
     currentPicPage++;
     document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
     document.getElementById('pic-prev').disabled = false;
-    document.querySelector('.page-indicator').textContent = `${currentPicPage}/${totalPicPages}`;
-    if (currentPicPage === totalPicPages) this.disabled = true;
+    document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
+    if (currentPicPage === 2) this.disabled = true;
   }
 });
 
@@ -245,19 +265,9 @@ document.getElementById('pic-prev').addEventListener('click', function() {
     currentPicPage--;
     document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
     document.getElementById('pic-next').disabled = false;
-    document.querySelector('.page-indicator').textContent = `${currentPicPage}/${totalPicPages}`;
+    document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
     if (currentPicPage === 1) this.disabled = true;
   }
-});
-
-// Close viewer when clicking outside image
-document.getElementById('image-viewer').addEventListener('click', function(e) {
-  if (e.target === this) hideImage();
-});
-
-// Close with ESC key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') hideImage();
 });
 </script>
   
