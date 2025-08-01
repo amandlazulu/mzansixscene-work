@@ -171,58 +171,94 @@
     <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
   </div>
 
-<!-- Pictures Section -->
-<div class="media-grid" id="pic-page1">
-  <div class="image-container">
-    <img src="https://drive.google.com/thumbnail?id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t&sz=w1000" 
-         alt="Picture 1" 
-         onclick="openViewer('https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t')">
+<!-- Pictures Section - REPLACE YOUR CURRENT IMAGES SECTION WITH THIS -->
+<div class="media-section">
+  <h2>Pictures - Page <span class="pic-page">1</span></h2>
+  <div class="media-grid" id="pic-page1">
+    <div class="image-container">
+      <img src="https://drive.google.com/thumbnail?id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t&sz=w1000" 
+           alt="Picture 1" 
+           onclick="showImage('https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t')">
+    </div>
+    <div class="image-container">
+      <img src="https://drive.google.com/thumbnail?id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH&sz=w1000" 
+           alt="Picture 2" 
+           onclick="showImage('https://drive.google.com/uc?export=view&id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH')">
+    </div>
+    <div class="image-container">
+      <img src="https://drive.google.com/thumbnail?id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR&sz=w1000" 
+           alt="Picture 3" 
+           onclick="showImage('https://drive.google.com/uc?export=view&id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR')">
+    </div>
   </div>
-  <div class="image-container">
-    <img src="https://drive.google.com/thumbnail?id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH&sz=w1000" 
-         alt="Picture 2" 
-         onclick="openViewer('https://drive.google.com/uc?export=view&id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH')">
+  <div class="media-grid" id="pic-page2" style="display:none">
+    <div class="image-container">
+      <img src="https://drive.google.com/thumbnail?id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t&sz=w1000" 
+           alt="Picture 4" 
+           onclick="showImage('https://drive.google.com/uc?export=view&id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t')">
+    </div>
   </div>
-  <div class="image-container">
-    <img src="https://drive.google.com/thumbnail?id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR&sz=w1000" 
-         alt="Picture 3" 
-         onclick="openViewer('https://drive.google.com/uc?export=view&id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR')">
+  <div class="nav-btns">
+    <button id="pic-prev" disabled>Previous</button>
+    <span class="page-indicator">1/2</span>
+    <button id="pic-next">Next</button>
   </div>
 </div>
-<div class="media-grid" id="pic-page2" style="display:none">
-  <div class="image-container">
-    <img src="https://drive.google.com/thumbnail?id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t&sz=w1000" 
-         alt="Picture 4" 
-         onclick="openViewer('https://drive.google.com/uc?export=view&id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t')">
-  </div>
-</div>
-<div class="nav-btns">
-  <button id="pic-prev" disabled>Previous</button>
-  <span class="page-indicator">1/2</span>
-  <button id="pic-next">Next</button>
+
+<!-- Add this SIMPLE IMAGE VIEWER right before </body> -->
+<div id="image-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; text-align:center;">
+  <span style="position:absolute; top:20px; right:20px; color:white; font-size:30px; cursor:pointer;" onclick="hideImage()">×</span>
+  <img id="fullsize-image" style="max-width:90%; max-height:90%; margin-top:5vh; border:2px solid hotpink;">
 </div>
 
 <script>
-  function openViewer(imageUrl) {
-    const viewer = window.open(imageUrl, '_blank');
-    viewer.focus();
-  }
+// SIMPLE IMAGE VIEWER FUNCTIONS
+function showImage(url) {
+  document.getElementById('fullsize-image').src = url;
+  document.getElementById('image-viewer').style.display = 'block';
+  document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
 
-  document.getElementById('pic-next').addEventListener('click', function() {
-    document.getElementById('pic-page1').style.display = 'none';
-    document.getElementById('pic-page2').style.display = 'block';
+function hideImage() {
+  document.getElementById('image-viewer').style.display = 'none';
+  document.body.style.overflow = 'auto'; // Re-enable scrolling
+}
+
+// PAGINATION CODE
+let currentPicPage = 1;
+const totalPicPages = 2;
+
+document.getElementById('pic-next').addEventListener('click', function() {
+  if (currentPicPage < totalPicPages) {
+    document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
+    currentPicPage++;
+    document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
     document.getElementById('pic-prev').disabled = false;
-    document.querySelector('.page-indicator').textContent = '2/2';
-    this.disabled = true;
-  });
+    document.querySelector('.page-indicator').textContent = `${currentPicPage}/${totalPicPages}`;
+    if (currentPicPage === totalPicPages) this.disabled = true;
+  }
+});
 
-  document.getElementById('pic-prev').addEventListener('click', function() {
-    document.getElementById('pic-page2').style.display = 'none';
-    document.getElementById('pic-page1').style.display = 'block';
+document.getElementById('pic-prev').addEventListener('click', function() {
+  if (currentPicPage > 1) {
+    document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
+    currentPicPage--;
+    document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
     document.getElementById('pic-next').disabled = false;
-    document.querySelector('.page-indicator').textContent = '1/2';
-    this.disabled = true;
-  });
+    document.querySelector('.page-indicator').textContent = `${currentPicPage}/${totalPicPages}`;
+    if (currentPicPage === 1) this.disabled = true;
+  }
+});
+
+// Close viewer when clicking outside image
+document.getElementById('image-viewer').addEventListener('click', function(e) {
+  if (e.target === this) hideImage();
+});
+
+// Close with ESC key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') hideImage();
+});
 </script>
   
   <!-- Bottom Ad -->
