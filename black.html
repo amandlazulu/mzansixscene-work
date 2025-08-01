@@ -204,10 +204,26 @@
 </div>
 
 <script>
-function openViewer(url) {
+  function openViewer(url) {
     const viewer = window.open(url, '_blank');
     viewer.focus();
-}
+  }
+
+  document.getElementById('pic-next').addEventListener('click', function() {
+    document.getElementById('pic-page1').style.display = 'none';
+    document.getElementById('pic-page2').style.display = 'block';
+    document.getElementById('pic-prev').disabled = false;
+    document.querySelector('.page-indicator').textContent = '2/2';
+    this.disabled = true;
+  });
+
+  document.getElementById('pic-prev').addEventListener('click', function() {
+    document.getElementById('pic-page1').style.display = 'block';
+    document.getElementById('pic-page2').style.display = 'none';
+    document.getElementById('pic-next').disabled = false;
+    document.querySelector('.page-indicator').textContent = '1/2';
+    this.disabled = true;
+  });
 </script>
   
   <!-- Bottom Ad -->
