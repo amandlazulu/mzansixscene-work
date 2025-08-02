@@ -208,90 +208,22 @@
   </div>
 </div>
 
-<!-- Pictures Section -->
-<div class="media-section">
-  <h2>Pictures - Page <span class="pic-page">1</span></h2>
-  <div class="media-grid" id="pic-page1">
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-  </div>
-  <div class="media-grid" id="pic-page2" style="display:none">
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-    <div class="image-container">
-      <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
-           alt="Animated Picture" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
-    </div>
-  </div>
-  <div class="nav-btns">
-    <button id="pic-prev" disabled>Previous</button>
-    <span class="page-indicator">1/2</span>
-    <button id="pic-next">Next</button>
-  </div>
-</div>
-
-<!-- Image Viewer -->
+<!-- Image Viewer with Zoom -->
 <div id="image-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; text-align:center;">
   <span class="close-viewer" onclick="hideImage()" style="position:absolute; top:20px; right:20px; color:white; font-size:30px; cursor:pointer;">×</span>
-  <img id="viewer-image" style="max-width:90%; max-height:90%; margin-top:5vh; border:2px solid hotpink;">
+  <img id="viewer-image" style="max-width:90%; max-height:90%; margin-top:5vh; border:2px solid hotpink; cursor:zoom-in; transition: transform 0.3s ease;">
 </div>
 
 <script>
-// Image viewer functionality
+// Image viewer with zoom functionality
+let isZoomed = false;
+
 function showImage(url) {
-  document.getElementById('viewer-image').src = url;
+  const viewerImg = document.getElementById('viewer-image');
+  viewerImg.src = url;
+  viewerImg.style.transform = 'scale(1)';
+  isZoomed = false;
+  viewerImg.style.cursor = 'zoom-in';
   document.getElementById('image-viewer').style.display = 'block';
   document.body.style.overflow = 'hidden';
 }
@@ -301,11 +233,29 @@ function hideImage() {
   document.body.style.overflow = 'auto';
 }
 
+function toggleZoom() {
+  const viewerImg = document.getElementById('viewer-image');
+  if (isZoomed) {
+    viewerImg.style.transform = 'scale(1)';
+    viewerImg.style.cursor = 'zoom-in';
+  } else {
+    viewerImg.style.transform = 'scale(1.5)';
+    viewerImg.style.cursor = 'zoom-out';
+  }
+  isZoomed = !isZoomed;
+}
+
 // Click handler for images
 document.querySelectorAll('.image-container img').forEach(img => {
   img.addEventListener('click', function() {
     showImage(this.dataset.fullsize);
   });
+});
+
+// Click handler for viewer image
+document.getElementById('viewer-image').addEventListener('click', function(e) {
+  e.stopPropagation(); // Prevent closing when clicking the image
+  toggleZoom();
 });
 
 // Close viewer when clicking outside image
@@ -319,30 +269,6 @@ document.getElementById('image-viewer').addEventListener('click', function(e) {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape' && document.getElementById('image-viewer').style.display === 'block') {
     hideImage();
-  }
-});
-
-// Picture pagination
-let currentPicPage = 1;
-document.getElementById('pic-next').addEventListener('click', function() {
-  if (currentPicPage < 2) {
-    document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
-    currentPicPage++;
-    document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
-    document.getElementById('pic-prev').disabled = false;
-    document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
-    if (currentPicPage === 2) this.disabled = true;
-  }
-});
-
-document.getElementById('pic-prev').addEventListener('click', function() {
-  if (currentPicPage > 1) {
-    document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
-    currentPicPage--;
-    document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
-    document.getElementById('pic-next').disabled = false;
-    document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
-    if (currentPicPage === 1) this.disabled = true;
   }
 });
 </script>
