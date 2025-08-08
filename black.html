@@ -120,19 +120,6 @@
       color: white;
       font-size: 30px;
       cursor: pointer;
-      z-index: 1001;
-      background: rgba(0,0,0,0.5);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-    }
-    .close-viewer:hover {
-      background: rgba(255,105,180,0.8);
-      transform: scale(1.1);
     }
   </style>
 </head>
@@ -309,47 +296,48 @@
 
 <!-- Enhanced Image Viewer with Zoom -->
 <div id="image-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; overflow: auto;">
-  <span class="close-viewer" onclick="closeViewer()">×</span>
+  <span class="close-viewer" style="position:fixed; top:20px; right:20px; color:white; font-size:30px; cursor:pointer; z-index:1001;" onclick="hideImage()">×</span>
   <div style="display:flex; justify-content:center; align-items:center; min-height:100%;">
-    <img id="fullsize-image" style="max-width:90%; max-height:90%; cursor:pointer; border:2px solid hotpink; border-radius:8px;">
+    <img id="fullsize-image" style="max-width:2000px; max-height:2000px; cursor:zoom-in; transition: transform 0.25s ease;" onclick="zoomImage()">
   </div>
 </div>
 
 <script>
-// Image viewer functionality
+// Image viewer with zoom functionality
+let isZoomed = false;
+const fullsizeImg = document.getElementById('fullsize-image');
+
 function showImage(url) {
   const viewer = document.getElementById('image-viewer');
-  const fullsizeImg = document.getElementById('fullsize-image');
-  
   viewer.style.display = 'block';
   document.body.style.overflow = 'hidden';
   fullsizeImg.src = url;
+  fullsizeImg.style.transform = 'scale(1)';
+  isZoomed = false;
+  fullsizeImg.style.cursor = 'zoom-in';
 }
 
-function closeViewer() {
+function hideImage() {
   document.getElementById('image-viewer').style.display = 'none';
   document.body.style.overflow = 'auto';
+}
+
+function zoomImage() {
+  if (isZoomed) {
+    fullsizeImg.style.transform = 'scale(1)';
+    fullsizeImg.style.cursor = 'zoom-in';
+  } else {
+    fullsizeImg.style.transform = 'scale(1.5)';
+    fullsizeImg.style.cursor = 'zoom-out';
+  }
+  isZoomed = !isZoomed;
 }
 
 // Click handler for images
 document.querySelectorAll('.image-container img').forEach(img => {
   img.addEventListener('click', function() {
-    showImage(this.dataset.fullsize || this.src);
+    showImage(this.dataset.fullsize);
   });
-});
-
-// Close viewer when clicking outside image
-document.getElementById('image-viewer').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeViewer();
-  }
-});
-
-// Close with ESC key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeViewer();
-  }
 });
 
 // Pagination
@@ -360,7 +348,6 @@ document.getElementById('pic-next').addEventListener('click', function() {
     currentPicPage++;
     document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
     document.getElementById('pic-prev').disabled = false;
-    document.querySelector('.pic-page').textContent = currentPicPage;
     document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
     if (currentPicPage === 2) this.disabled = true;
   }
@@ -372,9 +359,22 @@ document.getElementById('pic-prev').addEventListener('click', function() {
     currentPicPage--;
     document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
     document.getElementById('pic-next').disabled = false;
-    document.querySelector('.pic-page').textContent = currentPicPage;
     document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
     if (currentPicPage === 1) this.disabled = true;
+  }
+});
+
+// Close viewer when clicking outside image
+document.getElementById('image-viewer').addEventListener('click', function(e) {
+  if (e.target === this) {
+    hideImage();
+  }
+});
+
+// Close with ESC key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    hideImage();
   }
 });
 </script>
