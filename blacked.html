@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Black - Mzansi X Scene</title>
+  <title>Blacked - Mzansi X Scene</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' ry='20' fill='hotpink'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-size='60' fill='white'>X</text></svg>">
   <style>
     body {
@@ -124,12 +124,49 @@
       cursor: pointer;
       z-index: 1001;
     }
+    /* New style for website buttons */
+    .website-buttons {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 10px;
+      text-align: center;
+    }
+    .website-buttons h2 {
+      color: hotpink;
+      text-shadow: 0 0 8px hotpink;
+      margin-bottom: 15px;
+    }
+    .website-btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .website-btn {
+      padding: 12px 25px;
+      background: hotpink;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 5px hotpink;
+      transition: transform 0.3s;
+      flex: 1;
+      min-width: 200px;
+      max-width: 300px;
+      text-align: center;
+    }
+    .website-btn:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
   <header>
     <a href="index.html" class="home-btn">Home</a>
-    <h1>Black</h1>
+    <h1>Blacked</h1>
   </header>
 
   <!-- Top Ad -->
@@ -278,6 +315,15 @@
       <button id="pic-prev" disabled>Previous</button>
       <span class="page-indicator">1/2</span>
       <button id="pic-next">Next</button>
+    </div>
+  </div>
+
+  <!-- New Website Buttons Section -->
+  <div class="website-buttons">
+    <h2>Other Websites</h2>
+    <div class="website-btn-container">
+      <a href="https://www.tvyami.online/" class="website-btn" target="_blank">TV Yami</a>
+      <a href="https://mzansimovie.blogspot.com/" class="website-btn" target="_blank">NEW WEB</a>
     </div>
   </div>
 
