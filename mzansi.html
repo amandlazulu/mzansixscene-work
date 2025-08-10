@@ -558,37 +558,46 @@
       }
     });
 
-    // Video pagination
-    let currentVideoPage = 1;
-    const videoPrevBtn = document.getElementById('video-prev');
-    const videoNextBtn = document.getElementById('video-next');
+// Video pagination for 4 pages
+let currentVideoPage = 1;
+const totalVideoPages = 4;
+const videoPrevBtn = document.getElementById('video-prev');
+const videoNextBtn = document.getElementById('video-next');
 
-    function updateVideoPage() {
-      document.getElementById('video-page1').style.display = currentVideoPage === 1 ? 'grid' : 'none';
-      document.getElementById('video-page2').style.display = currentVideoPage === 2 ? 'grid' : 'none';
-      
-      videoPrevBtn.disabled = currentVideoPage === 1;
-      videoNextBtn.disabled = currentVideoPage === 2;
-      
-      document.querySelector('.video-page').textContent = currentVideoPage;
-    }
+function updateVideoPage() {
+  // Hide all video pages
+  for (let i = 1; i <= totalVideoPages; i++) {
+    document.getElementById(`video-page${i}`).style.display = 'none';
+  }
+  
+  // Show current video page
+  document.getElementById(`video-page${currentVideoPage}`).style.display = 'grid';
+  
+  // Update page indicator
+  document.querySelector('.video-page').textContent = currentVideoPage;
+  document.querySelector('.page-indicator').textContent = `${currentVideoPage}/${totalVideoPages}`;
+  
+  // Update button states
+  videoPrevBtn.disabled = currentVideoPage === 1;
+  videoNextBtn.disabled = currentVideoPage === totalVideoPages;
+}
 
-    videoPrevBtn.addEventListener('click', () => {
-      if (currentVideoPage > 1) {
-        currentVideoPage--;
-        updateVideoPage();
-      }
-    });
-
-    videoNextBtn.addEventListener('click', () => {
-      if (currentVideoPage < 2) {
-        currentVideoPage++;
-        updateVideoPage();
-      }
-    });
-
-    // Initialize
+videoPrevBtn.addEventListener('click', () => {
+  if (currentVideoPage > 1) {
+    currentVideoPage--;
     updateVideoPage();
+  }
+});
+
+videoNextBtn.addEventListener('click', () => {
+  if (currentVideoPage < totalVideoPages) {
+    currentVideoPage++;
+    updateVideoPage();
+  }
+});
+
+// Initialize
+updateVideoPage();
   </script>
 </body>
 </html>
