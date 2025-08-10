@@ -454,38 +454,30 @@
     </div>
   </div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Your existing head content -->
-</head>
-<body>
-  <!-- All your existing HTML content -->
-
-  <!-- Enhanced Image Viewer -->
-  <div id="image-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; text-align: center;">
-    <span class="close-viewer" style="position:fixed; top:20px; right:20px; color:white; font-size:30px; cursor:pointer; z-index:1001;" onclick="hideImage()">×</span>
+  <!-- Image Viewer -->
+  <div id="image-viewer">
+    <span class="close-viewer" onclick="hideImage()">×</span>
     <div style="display:flex; justify-content:center; align-items:center; min-height:100%;">
-      <img id="fullsize-image" style="max-width:90%; max-height:90%; cursor:zoom-in; transition: transform 0.25s ease; border:2px solid hotpink;" onclick="zoomImage(event)">
+      <img id="fullsize-image" onclick="zoomImage(event)">
     </div>
   </div>
 
-  <footer>
-    <div itemscope itemtype="https://schema.org/Organization">
-      <h2><span itemprop="name">Mzansi XXX</span> - Premium Adult Entertainment</h2>
-      <p itemprop="description">
-        <strong>AGE RESTRICTION NOTICE:</strong> This website contains explicit adult content. 
-        You must be at least 18 years old to access this site. All performers depicted 
-        in photos and videos are 18 years of age or older at the time of content creation.
-      </p>
-      <p>
-        <strong>Content Notice:</strong> The best source for South African and worldwide adult content, 
-        featuring exclusive videos and photos updated regularly.
-      </p>
-      <p>All content is hosted by third-party services</p>
-      <p>&copy; <span itemprop="copyrightYear">2025</span> <span itemprop="copyrightHolder">Mzansi XXX</span> All rights reserved.</p>
-    </div>
-  </footer>
+<footer>
+  <div itemscope itemtype="https://schema.org/Organization">
+    <h2><span itemprop="name">Mzansi XXX</span> - Premium Adult Entertainment</h2>
+    <p itemprop="description">
+      <strong>AGE RESTRICTION NOTICE:</strong> This website contains explicit adult content. 
+      You must be at least 18 years old to access this site. All performers depicted 
+      in photos and videos are 18 years of age or older at the time of content creation.
+    </p>
+    <p>
+      <strong>Content Notice:</strong> The best source for South African and worldwide adult content, 
+      featuring exclusive videos and photos updated regularly.
+    </p>
+    <p>All content is hosted by third-party services</p>
+    <p>&copy; <span itemprop="copyrightYear">2025</span> <span itemprop="copyrightHolder">Mzansi XXX</span> All rights reserved.</p>
+  </div>
+</footer>
 
   <script>
     // Image viewer with zoom functionality
@@ -519,31 +511,10 @@
       isZoomed = !isZoomed;
     }
 
-    // Enhanced click handler for images
-    function setupImageClickHandlers() {
-      document.querySelectorAll('.image-container img').forEach(img => {
-        img.addEventListener('click', function() {
-          showImage(this.dataset.fullsize || this.src);
-        });
-      });
-    }
-
-    // Initialize on DOM content loaded
-    document.addEventListener('DOMContentLoaded', function() {
-      setupImageClickHandlers();
-      
-      // Handle dynamically loaded images (for pagination)
-      const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-          if (mutation.addedNodes.length) {
-            setupImageClickHandlers();
-          }
-        });
-      });
-      
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
+    // Click handler for images
+    document.querySelectorAll('.image-container img').forEach(img => {
+      img.addEventListener('click', function() {
+        showImage(this.dataset.fullsize);
       });
     });
 
@@ -561,102 +532,62 @@
       }
     });
 
-    // Picture pagination for 4 pages
+    // Picture pagination
     let currentPicPage = 1;
-    const totalPicPages = 4;
-    const picPrevBtn = document.getElementById('pic-prev');
-    const picNextBtn = document.getElementById('pic-next');
-
-    function updatePicPage() {
-      // Hide all picture pages
-      for (let i = 1; i <= totalPicPages; i++) {
-        const page = document.getElementById(`pic-page${i}`);
-        if (page) page.style.display = 'none';
+    document.getElementById('pic-next').addEventListener('click', function() {
+      if (currentPicPage < 2) {
+        document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
+        currentPicPage++;
+        document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
+        document.getElementById('pic-prev').disabled = false;
+        document.querySelector('.pic-page').textContent = currentPicPage;
+        document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
+        if (currentPicPage === 2) this.disabled = true;
       }
-      
-      // Show current picture page
-      const currentPage = document.getElementById(`pic-page${currentPicPage}`);
-      if (currentPage) currentPage.style.display = 'grid';
-      
-      // Update page indicator
-      const picPageIndicator = document.querySelector('.pic-page');
-      const pageIndicator = document.querySelector('.page-indicator');
-      if (picPageIndicator) picPageIndicator.textContent = currentPicPage;
-      if (pageIndicator) pageIndicator.textContent = `${currentPicPage}/${totalPicPages}`;
-      
-      // Update button states
-      if (picPrevBtn) picPrevBtn.disabled = currentPicPage === 1;
-      if (picNextBtn) picNextBtn.disabled = currentPicPage === totalPicPages;
-    }
+    });
 
-    if (picPrevBtn) {
-      picPrevBtn.addEventListener('click', () => {
-        if (currentPicPage > 1) {
-          currentPicPage--;
-          updatePicPage();
-        }
-      });
-    }
+    document.getElementById('pic-prev').addEventListener('click', function() {
+      if (currentPicPage > 1) {
+        document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
+        currentPicPage--;
+        document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
+        document.getElementById('pic-next').disabled = false;
+        document.querySelector('.pic-page').textContent = currentPicPage;
+        document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
+        if (currentPicPage === 1) this.disabled = true;
+      }
+    });
 
-    if (picNextBtn) {
-      picNextBtn.addEventListener('click', () => {
-        if (currentPicPage < totalPicPages) {
-          currentPicPage++;
-          updatePicPage();
-        }
-      });
-    }
-
-    // Initialize picture pagination
-    updatePicPage();
-
-    // Video pagination for 4 pages
+    // Video pagination
     let currentVideoPage = 1;
-    const totalVideoPages = 4;
     const videoPrevBtn = document.getElementById('video-prev');
     const videoNextBtn = document.getElementById('video-next');
 
     function updateVideoPage() {
-      // Hide all video pages
-      for (let i = 1; i <= totalVideoPages; i++) {
-        const page = document.getElementById(`video-page${i}`);
-        if (page) page.style.display = 'none';
+      document.getElementById('video-page1').style.display = currentVideoPage === 1 ? 'grid' : 'none';
+      document.getElementById('video-page2').style.display = currentVideoPage === 2 ? 'grid' : 'none';
+      
+      videoPrevBtn.disabled = currentVideoPage === 1;
+      videoNextBtn.disabled = currentVideoPage === 2;
+      
+      document.querySelector('.video-page').textContent = currentVideoPage;
+    }
+
+    videoPrevBtn.addEventListener('click', () => {
+      if (currentVideoPage > 1) {
+        currentVideoPage--;
+        updateVideoPage();
       }
-      
-      // Show current video page
-      const currentPage = document.getElementById(`video-page${currentVideoPage}`);
-      if (currentPage) currentPage.style.display = 'grid';
-      
-      // Update page indicator
-      const videoPageIndicator = document.querySelector('.video-page');
-      const pageIndicator = document.querySelector('.page-indicator');
-      if (videoPageIndicator) videoPageIndicator.textContent = currentVideoPage;
-      if (pageIndicator) pageIndicator.textContent = `${currentVideoPage}/${totalVideoPages}`;
-      
-      // Update button states
-      if (videoPrevBtn) videoPrevBtn.disabled = currentVideoPage === 1;
-      if (videoNextBtn) videoNextBtn.disabled = currentVideoPage === totalVideoPages;
-    }
+    });
 
-    if (videoPrevBtn) {
-      videoPrevBtn.addEventListener('click', () => {
-        if (currentVideoPage > 1) {
-          currentVideoPage--;
-          updateVideoPage();
-        }
-      });
-    }
+    videoNextBtn.addEventListener('click', () => {
+      if (currentVideoPage < 2) {
+        currentVideoPage++;
+        updateVideoPage();
+      }
+    });
 
-    if (videoNextBtn) {
-      videoNextBtn.addEventListener('click', () => {
-        if (currentVideoPage < totalVideoPages) {
-          currentVideoPage++;
-          updateVideoPage();
-        }
-      });
-    }
-
-    // Initialize video pagination
+    // Initialize
     updateVideoPage();
   </script>
 </body>
