@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Black - Mzansi X Scene</title>
+  <title>Mzansi - Mzansi X Scene</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' ry='20' fill='hotpink'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-size='60' fill='white'>X</text></svg>">
   <style>
     body {
@@ -107,11 +107,13 @@
       z-index: 1000;
       text-align: center;
     }
-    #viewer-image {
+    #fullsize-image {
       max-width: 90%;
       max-height: 90%;
       margin-top: 5vh;
       border: 2px solid hotpink;
+      cursor: zoom-in;
+      transition: transform 0.25s ease;
     }
     .close-viewer {
       position: absolute;
@@ -120,13 +122,51 @@
       color: white;
       font-size: 30px;
       cursor: pointer;
+      z-index: 1001;
+    }
+    /* New style for website buttons */
+    .website-buttons {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 10px;
+      text-align: center;
+    }
+    .website-buttons h2 {
+      color: hotpink;
+      text-shadow: 0 0 8px hotpink;
+      margin-bottom: 15px;
+    }
+    .website-btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .website-btn {
+      padding: 12px 25px;
+      background: hotpink;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 5px hotpink;
+      transition: transform 0.3s;
+      flex: 1;
+      min-width: 200px;
+      max-width: 300px;
+      text-align: center;
+    }
+    .website-btn:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
   <header>
     <a href="index.html" class="home-btn">Home</a>
-    <h1>Black</h1>
+    <h1>Mzansi</h1>
   </header>
 
   <!-- Top Ad -->
@@ -157,225 +197,287 @@
     </div>
   </div>
 
-<!-- Three Horizontal Ads - SIDE BY SIDE -->
-<div class="ad-container" style="max-width: 1100px; margin: 0 auto; padding: 20px 10px; background: #000; text-align: center;">
-  <div style="display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap;">
-    <!-- Ad 1 -->
-    <div style="flex: 1; min-width: 300px;">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '648b08532c6ed7134fdd6c1afef9d549',
-          'format' : 'iframe',
-          'height' : 250,
-          'width' : 300,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
-    </div>
-    
-    <!-- Ad 2 -->
-    <div style="flex: 1; min-width: 300px;">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '648b08532c6ed7134fdd6c1afef9d549',
-          'format' : 'iframe',
-          'height' : 250,
-          'width' : 300,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
-    </div>
-    
-    <!-- Ad 3 -->
-    <div style="flex: 1; min-width: 300px;">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '648b08532c6ed7134fdd6c1afef9d549',
-          'format' : 'iframe',
-          'height' : 250,
-          'width' : 300,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
-    </div>
-  </div>
-</div>
-
-<!-- Pictures Section -->
-<div class="media-section">
-  <h2>Pictures - Page <span class="pic-page">1</span></h2>
-  <div class="media-grid" id="pic-page1">
-    <div class="image-container">
-      <img src="https://drive.google.com/thumbnail?id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t&sz=w1000" 
-           alt="Picture 1" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t">
-    </div>
-    <div class="image-container">
-      <img src="https://drive.google.com/thumbnail?id=1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH&sz=w1000" 
-           alt="Picture 2" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1CUK-bgsk7bh3FpgOiROnkBCAmbAgKTBH">
-    </div>
-    <div class="image-container">
-      <img src="https://drive.google.com/thumbnail?id=15-HCr_7XOuHONimzmeItrS0PT-pY1UtR&sz=w1000" 
-           alt="Picture 3" 
-           data-fullsize="https://lh3.googleusercontent.com/d/15-HCr_7XOuHONimzmeItrS0PT-pY1UtR">
+  <!-- Three Horizontal Ads - SIDE BY SIDE -->
+  <div class="ad-container" style="max-width: 1100px; margin: 0 auto; padding: 20px 10px; background: #000; text-align: center;">
+    <div style="display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap;">
+      <!-- Ad 1 -->
+      <div style="flex: 1; min-width: 300px;">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : '648b08532c6ed7134fdd6c1afef9d549',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
+      </div>
+      
+      <!-- Ad 2 -->
+      <div style="flex: 1; min-width: 300px;">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : '648b08532c6ed7134fdd6c1afef9d549',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
+      </div>
+      
+      <!-- Ad 3 -->
+      <div style="flex: 1; min-width: 300px;">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : '648b08532c6ed7134fdd6c1afef9d549',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
+      </div>
     </div>
   </div>
-  <div class="media-grid" id="pic-page2" style="display:none">
-    <div class="image-container">
-      <img src="https://drive.google.com/thumbnail?id=1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t&sz=w1000" 
-           alt="Picture 4" 
-           data-fullsize="https://lh3.googleusercontent.com/d/1CUK-13_t4pKSkM1Cc6x15AkER998Y1rYCBC6t">
+
+  <!-- Pictures Section -->
+  <div class="media-section">
+    <h2>Pictures - Page <span class="pic-page">1</span></h2>
+    <div class="media-grid" id="pic-page1">
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+    </div>
+    <div class="media-grid" id="pic-page2" style="display:none">
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+      <div class="image-container">
+        <img src="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN" 
+             alt="Animated Picture" 
+             data-fullsize="https://lh3.googleusercontent.com/d/1AzT3Vgs5kQdQ_zI_MSDJY62q2J-GoLnN">
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button id="pic-prev" disabled>Previous</button>
+      <span class="page-indicator">1/2</span>
+      <button id="pic-next">Next</button>
     </div>
   </div>
-  <div class="nav-btns">
-    <button id="pic-prev" disabled>Previous</button>
-    <span class="page-indicator">1/2</span>
-    <button id="pic-next">Next</button>
-  </div>
-</div>
 
-<!-- Triple Bottom Ads - HORIZONTAL LAYOUT -->
-<div class="ad-container" style="max-width: 1100px; margin: 0 auto; padding: 20px 10px; background: #000; text-align: center; overflow: hidden;">
-  <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-    <!-- Ad 1 -->
-    <div style="flex: 0 0 auto;">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '9fe4ec7851720a430fcc8b0183179c46',
-          'format' : 'iframe',
-          'height' : 60,
-          'width' : 350,  <!-- Reduced from 468 to fit three across -->
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/9fe4ec7851720a430fcc8b0183179c46/invoke.js"></script>
-    </div>
-    
-    <!-- Ad 2 -->
-    <div style="flex: 0 0 auto;">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '9fe4ec7851720a430fcc8b0183179c46',
-          'format' : 'iframe',
-          'height' : 60,
-          'width' : 350,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/9fe4ec7851720a430fcc8b0183179c46/invoke.js"></script>
-    </div>
-    
-    <!-- Ad 3 -->
-    <div style="flex: 0 0 auto;">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '9fe4ec7851720a430fcc8b0183179c46',
-          'format' : 'iframe',
-          'height' : 60,
-          'width' : 350,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/9fe4ec7851720a430fcc8b0183179c46/invoke.js"></script>
+  <!-- New Website Buttons Section -->
+  <div class="website-buttons">
+    <h2>Other Websites</h2>
+    <div class="website-btn-container">
+      <a href="https://www.tvyami.online/" class="website-btn" target="_blank">TV Yami</a>
+      <a href="https://mzansimovie.blogspot.com/" class="website-btn" target="_blank">NEW WEB</a>
     </div>
   </div>
-</div>
 
-<!-- Enhanced Image Viewer with Zoom -->
-<div id="image-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; overflow: auto;">
-  <span class="close-viewer" style="position:fixed; top:20px; right:20px; color:white; font-size:30px; cursor:pointer; z-index:1001;" onclick="hideImage()">×</span>
-  <div style="display:flex; justify-content:center; align-items:center; min-height:100%;">
-    <img id="fullsize-image" style="max-width:2000px; max-height:2000px; cursor:zoom-in; transition: transform 0.25s ease;" onclick="zoomImage()">
+  <!-- Three Horizontal Ads - SIDE BY SIDE -->
+  <div class="ad-container" style="max-width: 1100px; margin: 0 auto; padding: 20px 10px; background: #000; text-align: center;">
+    <div style="display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap;">
+      <!-- Ad 1 -->
+      <div style="flex: 1; min-width: 300px;">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : '648b08532c6ed7134fdd6c1afef9d549',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
+      </div>
+      
+      <!-- Ad 2 -->
+      <div style="flex: 1; min-width: 300px;">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : '648b08532c6ed7134fdd6c1afef9d549',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
+      </div>
+      
+      <!-- Ad 3 -->
+      <div style="flex: 1; min-width: 300px;">
+        <script type="text/javascript">
+          atOptions = {
+            'key' : '648b08532c6ed7134fdd6c1afef9d549',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/648b08532c6ed7134fdd6c1afef9d549/invoke.js"></script>
+      </div>
+    </div>
   </div>
-</div>
 
-<script>
-// Image viewer with zoom functionality
-let isZoomed = false;
-const fullsizeImg = document.getElementById('fullsize-image');
+  <!-- Image Viewer -->
+  <div id="image-viewer">
+    <span class="close-viewer" onclick="hideImage()">×</span>
+    <div style="display:flex; justify-content:center; align-items:center; min-height:100%;">
+      <img id="fullsize-image" onclick="zoomImage(event)">
+    </div>
+  </div>
 
-function showImage(url) {
-  const viewer = document.getElementById('image-viewer');
-  viewer.style.display = 'block';
-  document.body.style.overflow = 'hidden';
-  fullsizeImg.src = url;
-  fullsizeImg.style.transform = 'scale(1)';
-  isZoomed = false;
-  fullsizeImg.style.cursor = 'zoom-in';
-}
-
-function hideImage() {
-  document.getElementById('image-viewer').style.display = 'none';
-  document.body.style.overflow = 'auto';
-}
-
-function zoomImage() {
-  if (isZoomed) {
-    fullsizeImg.style.transform = 'scale(1)';
-    fullsizeImg.style.cursor = 'zoom-in';
-  } else {
-    fullsizeImg.style.transform = 'scale(1.5)';
-    fullsizeImg.style.cursor = 'zoom-out';
-  }
-  isZoomed = !isZoomed;
-}
-
-// Click handler for images
-document.querySelectorAll('.image-container img').forEach(img => {
-  img.addEventListener('click', function() {
-    showImage(this.dataset.fullsize);
-  });
-});
-
-// Pagination
-let currentPicPage = 1;
-document.getElementById('pic-next').addEventListener('click', function() {
-  if (currentPicPage < 2) {
-    document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
-    currentPicPage++;
-    document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
-    document.getElementById('pic-prev').disabled = false;
-    document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
-    if (currentPicPage === 2) this.disabled = true;
-  }
-});
-
-document.getElementById('pic-prev').addEventListener('click', function() {
-  if (currentPicPage > 1) {
-    document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
-    currentPicPage--;
-    document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
-    document.getElementById('pic-next').disabled = false;
-    document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
-    if (currentPicPage === 1) this.disabled = true;
-  }
-});
-
-// Close viewer when clicking outside image
-document.getElementById('image-viewer').addEventListener('click', function(e) {
-  if (e.target === this) {
-    hideImage();
-  }
-});
-
-// Close with ESC key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    hideImage();
-  }
-});
-</script>
-
-  <footer>
-    All content is hosted by third-party services<br>
-    &copy; 2025 Mzansi X Scene All rights reserved.
-  </footer>
+<footer>
+  <div itemscope itemtype="https://schema.org/Organization">
+    <h2><span itemprop="name">Mzansi XXX</span> - Premium Adult Entertainment</h2>
+    <p itemprop="description">
+      <strong>AGE RESTRICTION NOTICE:</strong> This website contains explicit adult content. 
+      You must be at least 18 years old to access this site. All performers depicted 
+      in photos and videos are 18 years of age or older at the time of content creation.
+    </p>
+    <p>
+      <strong>Content Notice:</strong> The best source for South African and worldwide adult content, 
+      featuring exclusive videos and photos updated regularly.
+    </p>
+    <p>All content is hosted by third-party services</p>
+    <p>&copy; <span itemprop="copyrightYear">2025</span> <span itemprop="copyrightHolder">Mzansi XXX</span> All rights reserved.</p>
+  </div>
+</footer>
 
   <script>
+    // Image viewer with zoom functionality
+    let isZoomed = false;
+    const fullsizeImg = document.getElementById('fullsize-image');
+
+    function showImage(url) {
+      const viewer = document.getElementById('image-viewer');
+      viewer.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      fullsizeImg.src = url;
+      fullsizeImg.style.transform = 'scale(1)';
+      isZoomed = false;
+      fullsizeImg.style.cursor = 'zoom-in';
+    }
+
+    function hideImage() {
+      document.getElementById('image-viewer').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    function zoomImage(event) {
+      event.stopPropagation();
+      if (isZoomed) {
+        fullsizeImg.style.transform = 'scale(1)';
+        fullsizeImg.style.cursor = 'zoom-in';
+      } else {
+        fullsizeImg.style.transform = 'scale(1.5)';
+        fullsizeImg.style.cursor = 'zoom-out';
+      }
+      isZoomed = !isZoomed;
+    }
+
+    // Click handler for images
+    document.querySelectorAll('.image-container img').forEach(img => {
+      img.addEventListener('click', function() {
+        showImage(this.dataset.fullsize);
+      });
+    });
+
+    // Close viewer when clicking outside image
+    document.getElementById('image-viewer').addEventListener('click', function(e) {
+      if (e.target === this) {
+        hideImage();
+      }
+    });
+
+    // Close with ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        hideImage();
+      }
+    });
+
+    // Picture pagination
+    let currentPicPage = 1;
+    document.getElementById('pic-next').addEventListener('click', function() {
+      if (currentPicPage < 2) {
+        document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
+        currentPicPage++;
+        document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
+        document.getElementById('pic-prev').disabled = false;
+        document.querySelector('.pic-page').textContent = currentPicPage;
+        document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
+        if (currentPicPage === 2) this.disabled = true;
+      }
+    });
+
+    document.getElementById('pic-prev').addEventListener('click', function() {
+      if (currentPicPage > 1) {
+        document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
+        currentPicPage--;
+        document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
+        document.getElementById('pic-next').disabled = false;
+        document.querySelector('.pic-page').textContent = currentPicPage;
+        document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
+        if (currentPicPage === 1) this.disabled = true;
+      }
+    });
+
     // Video pagination
     let currentVideoPage = 1;
     const videoPrevBtn = document.getElementById('video-prev');
@@ -402,33 +504,6 @@ document.addEventListener('keydown', function(e) {
       if (currentVideoPage < 2) {
         currentVideoPage++;
         updateVideoPage();
-      }
-    });
-
-    // Image viewer
-    function openViewer(imageUrl) {
-      const viewerImg = document.getElementById('viewer-image');
-      viewerImg.src = imageUrl;
-      document.getElementById('image-viewer').style.display = 'block';
-    }
-
-    function closeViewer() {
-      document.getElementById('image-viewer').style.display = 'none';
-    }
-
-    // Close viewer when clicking outside image
-    document.getElementById('image-viewer').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeViewer();
-      }
-    });
-
-    // Keyboard controls for viewer
-    document.addEventListener('keydown', function(e) {
-      if (document.getElementById('image-viewer').style.display === 'block') {
-        if (e.key === 'Escape') {
-          closeViewer();
-        }
       }
     });
 
