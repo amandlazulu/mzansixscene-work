@@ -480,27 +480,54 @@
   </div>
 
 <script>
-// Image viewer with zoom functionality
+// Enhanced Image viewer with zoom functionality
 let isZoomed = false;
 const fullsizeImg = document.getElementById('fullsize-image');
+const imageViewer = document.getElementById('image-viewer');
 
 function showImage(url) {
-  const viewer = document.getElementById('image-viewer');
-  viewer.style.display = 'block';
+  // Create a loader while image loads
+  fullsizeImg.style.display = 'none';
+  const loader = document.createElement('div');
+  loader.className = 'image-loader';
+  loader.innerHTML = 'Loading...';
+  imageViewer.appendChild(loader);
+  
+  // Preload the image
+  const img = new Image();
+  img.onload = function() {
+    imageViewer.removeChild(loader);
+    fullsizeImg.style.display = 'block';
+    fullsizeImg.src = url;
+    resetImageZoom();
+    centerImage();
+  };
+  img.onerror = function() {
+    imageViewer.removeChild(loader);
+    fullsizeImg.style.display = 'block';
+    fullsizeImg.src = 'path/to/error-image.jpg'; // Fallback image
+    resetImageZoom();
+  };
+  img.src = url;
+
+  // Show viewer
+  imageViewer.style.display = 'flex'; // Changed to flex for better centering
   document.body.style.overflow = 'hidden';
-  fullsizeImg.src = url;
-  fullsizeImg.style.transform = 'scale(1)';
-  isZoomed = false;
-  fullsizeImg.style.cursor = 'zoom-in';
 }
 
 function hideImage() {
-  document.getElementById('image-viewer').style.display = 'none';
+  imageViewer.style.display = 'none';
   document.body.style.overflow = 'auto';
+  resetImageZoom();
 }
 
-function zoomImage(event) {
-  event.stopPropagation(); // Prevent event from bubbling to parent
+function resetImageZoom() {
+  fullsizeImg.style.transform = 'scale(1)';
+  fullsizeImg.style.cursor = 'zoom-in';
+  isZoomed = false;
+}
+
+function zoomImage() {
   if (isZoomed) {
     fullsizeImg.style.transform = 'scale(1)';
     fullsizeImg.style.cursor = 'zoom-in';
@@ -511,87 +538,56 @@ function zoomImage(event) {
   isZoomed = !isZoomed;
 }
 
+function centerImage() {
+  // Center the image in the viewer
+  fullsizeImg.style.position = 'relative';
+  fullsizeImg.style.top = '50%';
+  fullsizeImg.style.left = '50%';
+  fullsizeImg.style.transform = 'translate(-50%, -50%) scale(1)';
+}
+
 // Click handler for images
 document.querySelectorAll('.image-container img').forEach(img => {
   img.addEventListener('click', function() {
-    showImage(this.dataset.fullsize);
-  });
-}
-
-function handleImageClick() {
-  showImage(this.dataset.fullsize || this.src);
-}
-
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-  setupImageHandlers();
-  
-  // Handle pagination changes
-  document.querySelectorAll('.nav-btns button').forEach(btn => {
-    btn.addEventListener('click', setupImageHandlers);
+    // Use src if data-fullsize isn't available
+    const imageUrl = this.dataset.fullsize || this.src;
+    showImage(imageUrl);
   });
 });
 
-// Close viewer when clicking outside image
-document.getElementById('image-viewer').addEventListener('click', function(e) {
-  if (e.target === this) {
+// Close when clicking outside the image
+imageViewer.addEventListener('click', function(e) {
+  if (e.target === imageViewer) {
     hideImage();
   }
 });
+</script>
 
-// Close with ESC key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    hideImage();
-  }
-});
-
-// Fixed pagination for 4 pages
-let currentPicPage = 1;
-const totalPicPages = 4;
-const picPrevBtn = document.getElementById('pic-prev');
-const picNextBtn = document.getElementById('pic-next');
-
-function updatePicPage() {
-  // Hide all picture pages
-  for (let i = 1; i <= totalPicPages; i++) {
-    const page = document.getElementById(`pic-page${i}`);
-    if (page) page.style.display = 'none';
-  }
-  
-  // Show current page
-  const currentPage = document.getElementById(`pic-page${currentPicPage}`);
-  if (currentPage) currentPage.style.display = 'grid';
-  
-  // Update indicators
-  document.querySelector('.pic-page').textContent = currentPicPage;
-  document.querySelector('.page-indicator').textContent = `${currentPicPage}/${totalPicPages}`;
-  
-  // Update button states
-  picPrevBtn.disabled = currentPicPage === 1;
-  picNextBtn.disabled = currentPicPage === totalPicPages;
-  
-  // Reattach image handlers after page change
-  setupImageHandlers();
+<style>
+#image-viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  display: none;
+  justify-content: center;
+  align-items: center;
 }
 
-// Initialize pagination
-updatePicPage();
+#fullsize-image {
+  max-width: 90%;
+  max-height: 90%;
+  transition: transform 0.3s ease;
+}
 
-// Button event listeners
-picPrevBtn.addEventListener('click', () => {
-  if (currentPicPage > 1) {
-    currentPicPage--;
-    updatePicPage();
-  }
-});
-
-picNextBtn.addEventListener('click', () => {
-  if (currentPicPage < totalPicPages) {
-    currentPicPage++;
-    updatePicPage();
-  }
-});
+.image-loader {
+  color: white;
+  font-size: 20px;
+}
+</style>
 
 // Video pagination for 4 pages
 let currentVideoPage = 1;
