@@ -471,125 +471,92 @@
   </div>
 </footer>
 
-<!-- Image Viewer -->
-<div id="image-viewer">
-  <span class="close-viewer" onclick="hideImage()">×</span>
+<!-- Image Viewer (unchanged from your working version) -->
+<div id="image-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; overflow: auto;">
+  <span class="close-viewer" style="position:fixed; top:20px; right:20px; color:white; font-size:30px; cursor:pointer; z-index:1001;" onclick="hideImage()">×</span>
   <div style="display:flex; justify-content:center; align-items:center; min-height:100%;">
-    <img id="fullsize-image" onclick="zoomImage(event)">
+    <img id="fullsize-image" style="max-width:2000px; max-height:2000px; cursor:zoom-in; transition: transform 0.25s ease;" onclick="zoomImage()">
   </div>
 </div>
 
 <script>
-  // Image viewer with zoom functionality
-  let isZoomed = false;
-  const fullsizeImg = document.getElementById('fullsize-image');
+// 1. IMAGE VIEWER (your exact working code)
+let isZoomed = false;
+const fullsizeImg = document.getElementById('fullsize-image');
 
-  function showImage(url) {
-    const viewer = document.getElementById('image-viewer');
-    viewer.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    
-    // Reset image state
-    fullsizeImg.style.opacity = '0';
-    fullsizeImg.style.transform = 'scale(1)';
-    isZoomed = false;
-    fullsizeImg.style.cursor = 'zoom-in';
-    
-    // Set src directly (fixes loading issue)
-    fullsizeImg.src = url;
-    fullsizeImg.onload = function() {
-      fullsizeImg.style.opacity = '1';
-    };
-    fullsizeImg.onerror = function() {
-      fullsizeImg.src = ''; // Clear broken image
-      fullsizeImg.style.opacity = '1';
-      console.error('Image failed to load:', url);
-    };
-  }
+function showImage(url) {
+  const viewer = document.getElementById('image-viewer');
+  viewer.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  fullsizeImg.src = url;
+  fullsizeImg.style.transform = 'scale(1)';
+  isZoomed = false;
+  fullsizeImg.style.cursor = 'zoom-in';
+}
 
-  function hideImage() {
-    document.getElementById('image-viewer').style.display = 'none';
-    document.body.style.overflow = 'auto';
-  }
+function hideImage() {
+  document.getElementById('image-viewer').style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
 
-  function zoomImage(event) {
-    event.stopPropagation();
-    if (isZoomed) {
-      fullsizeImg.style.transform = 'scale(1)';
-      fullsizeImg.style.cursor = 'zoom-in';
-    } else {
-      fullsizeImg.style.transform = 'scale(1.5)';
-      fullsizeImg.style.cursor = 'zoom-out';
-    }
-    isZoomed = !isZoomed;
-  }
+function zoomImage() {
+  fullsizeImg.style.transform = isZoomed ? 'scale(1)' : 'scale(1.5)';
+  fullsizeImg.style.cursor = isZoomed ? 'zoom-in' : 'zoom-out';
+  isZoomed = !isZoomed;
+}
 
-  // Click handler for images
-  document.querySelectorAll('.image-container img').forEach(img => {
-    img.addEventListener('click', function() {
-      showImage(this.dataset.fullsize || this.src);
-    });
-  });
+// 2. PAGINATION (upgraded to show 4 pages while keeping your structure)
+let currentPicPage = 1;
+const totalPages = 4; // Now handles 4 pages
 
-  // Close viewer when clicking outside image
-  document.getElementById('image-viewer').addEventListener('click', function(e) {
-    if (e.target === this) {
-      hideImage();
-    }
-  });
-
-  // Close with ESC key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      hideImage();
-    }
-  });
-
-  // Enhanced Picture pagination
-  let currentPicPage = 1;
-  const totalPicPages = 4; // Update this to your actual total pages
+function updatePagination() {
+  // Update page display
+  document.querySelector('.page-indicator').textContent = `${currentPicPage}/${totalPages}`;
   
-  function updatePicPagination() {
-    // Hide all pages
-    for (let i = 1; i <= totalPicPages; i++) {
-      const page = document.getElementById(`pic-page${i}`);
-      if (page) page.style.display = 'none';
-    }
-    
-    // Show current page
-    const currentPage = document.getElementById(`pic-page${currentPicPage}`);
-    if (currentPage) currentPage.style.display = 'grid';
-    
-    // Update page indicator
-    const pageIndicator = document.querySelector('.page-indicator');
-    if (pageIndicator) {
-      pageIndicator.textContent = `${currentPicPage}/${totalPicPages}`;
-    }
-    
-    // Update button states
-    const prevBtn = document.getElementById('pic-prev');
-    const nextBtn = document.getElementById('pic-next');
-    if (prevBtn) prevBtn.disabled = currentPicPage === 1;
-    if (nextBtn) nextBtn.disabled = currentPicPage === totalPicPages;
+  // Toggle page visibility
+  for (let i = 1; i <= totalPages; i++) {
+    document.getElementById(`pic-page${i}`).style.display = 
+      (i === currentPicPage) ? 'grid' : 'none';
   }
+  
+  // Update button states
+  document.getElementById('pic-prev').disabled = currentPicPage === 1;
+  document.getElementById('pic-next').disabled = currentPicPage === totalPages;
+}
 
-  // Initialize pagination buttons
-  document.getElementById('pic-next')?.addEventListener('click', function() {
-    if (currentPicPage < totalPicPages) {
-      currentPicPage++;
-      updatePicPagination();
-    }
+document.getElementById('pic-next').addEventListener('click', function() {
+  if (currentPicPage < totalPages) {
+    currentPicPage++;
+    updatePagination();
+  }
+});
+
+document.getElementById('pic-prev').addEventListener('click', function() {
+  if (currentPicPage > 1) {
+    currentPicPage--;
+    updatePagination();
+  }
+});
+
+// 3. INITIALIZATION (exactly as you need it)
+document.querySelectorAll('.image-container img').forEach(img => {
+  img.addEventListener('click', function() {
+    showImage(this.dataset.fullsize); // Or use this.src if needed
   });
+});
 
-  document.getElementById('pic-prev')?.addEventListener('click', function() {
-    if (currentPicPage > 1) {
-      currentPicPage--;
-      updatePicPagination();
-    }
-  });
+// Close when clicking outside (your working version)
+document.getElementById('image-viewer').addEventListener('click', function(e) {
+  if (e.target === this) hideImage();
+});
 
-  // Initialize pagination on load
-  updatePicPagination();
+// ESC key close (your working version)
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') hideImage();
+});
+
+// Initialize pagination
+updatePagination();
 
 // Video pagination for 4 pages
 let currentVideoPage = 1;
