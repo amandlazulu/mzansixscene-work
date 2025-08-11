@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mzansi - Mzansi X Scene</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' ry='20' fill='hotpink'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-size='60' fill='white'>X</text></svg>">
   <style>
@@ -74,6 +74,7 @@
       justify-content: center;
       gap: 10px;
       margin-bottom: 20px;
+      align-items: center;
     }
     .nav-btns button {
       padding: 10px 20px;
@@ -104,7 +105,7 @@
       height: 100%;
       background: rgba(0,0,0,0.9);
       display: none;
-      z-index: 9999;
+      z-index: 1000;
       text-align: center;
     }
     #fullsize-image {
@@ -122,8 +123,9 @@
       color: white;
       font-size: 30px;
       cursor: pointer;
-      z-index: 10000;
+      z-index: 1001;
     }
+    /* New style for website buttons */
     .website-buttons {
       max-width: 1100px;
       margin: 20px auto;
@@ -159,10 +161,6 @@
     }
     .website-btn:hover {
       transform: scale(1.05);
-    }
-    /* Fix for page indicators */
-    .pic-page, .video-page {
-      display: inline !important;
     }
   </style>
 </head>
@@ -211,7 +209,7 @@
   </div>
   <div class="nav-btns">
     <button id="video-prev" disabled>Previous</button>
-    <span class="page-indicator"><span class="video-page">1</span>/4</span>
+    <span id="video-indicator" class="page-indicator">1/4</span>
     <button id="video-next">Next</button>
   </div>
 </div>
@@ -275,128 +273,128 @@
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1ANVWkkoo19_KBYUqP-EoRY_VqWQrVwsh&sz=w1000" 
            alt="Mzansi XXX Content 2" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1ANVWkkoo19_KBYUqP-EoRY_VqWQrVwsh">
+           data-fullsize="https://drive.google.com/file/d/1ANVWkkoo19_KBYUqP-EoRY_VqWQrVwsh/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=14-p16Gi0u38FxBmV61i0AJAhNZYW4Gqq&sz=w1000" 
            alt="Mzansi XXX Content 3" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=14-p16Gi0u38FxBmV61i0AJAhNZYW4Gqq">
+           data-fullsize="https://drive.google.com/file/d/14-p16Gi0u38FxBmV61i0AJAhNZYW4Gqq/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1zU6orXYoYfkgD--7BTEv03tEswXn1MYE&sz=w1000" 
            alt="Mzansi XXX Content 4" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1zU6orXYoYfkgD--7BTEv03tEswXn1MYE">
+           data-fullsize="https://drive.google.com/file/d/1zU6orXYoYfkgD--7BTEv03tEswXn1MYE/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1CJDykjvj-KXDYA9yXSIVXX9gFuRuQjGr&sz=w1000" 
            alt="Mzansi XXX Content 5" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1CJDykjvj-KXDYA9yXSIVXX9gFuRuQjGr">
+           data-fullsize="https://drive.google.com/file/d/1CJDykjvj-KXDYA9yXSIVXX9gFuRuQjGr/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1LrH-izDEKQg7mte2yC1ceVjCuYxEv9Zn&sz=w1000" 
            alt="Mzansi XXX Content 6" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1LrH-izDEKQg7mte2yC1ceVjCuYxEv9Zn">
+           data-fullsize="https://drive.google.com/file/d/1LrH-izDEKQg7mte2yC1ceVjCuYxEv9Zn/view">
     </div>
   </div>
   <div class="media-grid" id="pic-page2" style="display:none">
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1r4Y0KoxskP_ZBEMwjJKcc0SnVBA5ee8g&sz=w1000" 
            alt="Mzansi XXX Content 7" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1r4Y0KoxskP_ZBEMwjJKcc0SnVBA5ee8g">
+           data-fullsize="https://drive.google.com/file/d/1r4Y0KoxskP_ZBEMwjJKcc0SnVBA5ee8g/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1rM0S23pQhjWW4gzZ9F8CU_vWatT616IZ&sz=w1000" 
            alt="Mzansi XXX Content 8" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1rM0S23pQhjWW4gzZ9F8CU_vWatT616IZ">
+           data-fullsize="https://drive.google.com/file/d/1rM0S23pQhjWW4gzZ9F8CU_vWatT616IZ/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1JhzUhJvmrGVqDgRNoYm3_E_dWPv68V51&sz=w1000" 
            alt="Mzansi XXX Content 9" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1JhzUhJvmrGVqDgRNoYm3_E_dWPv68V51">
+           data-fullsize="https://drive.google.com/file/d/1JhzUhJvmrGVqDgRNoYm3_E_dWPv68V51/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1cf-OJmb2h-Zn6gw1SjoVb5aZnbiGsQoz&sz=w1000" 
            alt="Mzansi XXX Content 10" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1cf-OJmb2h-Zn6gw1SjoVb5aZnbiGsQoz">
+           data-fullsize="https://drive.google.com/file/d/1cf-OJmb2h-Zn6gw1SjoVb5aZnbiGsQoz/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1hfg-Ge-Njdk4uKhDryWEbKcBoaR0AGUV&sz=w1000" 
            alt="Mzansi XXX Content 11" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1hfg-Ge-Njdk4uKhDryWEbKcBoaR0AGUV">
+           data-fullsize="https://drive.google.com/file/d/1hfg-Ge-Njdk4uKhDryWEbKcBoaR0AGUV/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1AM5fimxvVncjandE4iT5TU62thYDqk6b&sz=w1000" 
            alt="Mzansi XXX Content 12" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1AM5fimxvVncjandE4iT5TU62thYDqk6b">
+           data-fullsize="https://drive.google.com/file/d/1AM5fimxvVncjandE4iT5TU62thYDqk6b/view">
     </div>
   </div>
   <div class="media-grid" id="pic-page3" style="display:none">
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1wnbj0PhqjQlAmPJFUontDIS_y45q4xIU&sz=w1000" 
            alt="Mzansi XXX Content 13" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1wnbj0PhqjQlAmPJFUontDIS_y45q4xIU">
+           data-fullsize="https://drive.google.com/file/d/1wnbj0PhqjQlAmPJFUontDIS_y45q4xIU/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1NCHF5tWRwUfNFdDGa1CsIO4GRjD01N9U&sz=w1000" 
            alt="Mzansi XXX Content 14" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1NCHF5tWRwUfNFdDGa1CsIO4GRjD01N9U">
+           data-fullsize="https://drive.google.com/file/d/1NCHF5tWRwUfNFdDGa1CsIO4GRjD01N9U/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1cZcQmEJgn3Kh55ho8YFiVQFuD7UDirmC&sz=w1000" 
            alt="Mzansi XXX Content 15" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1cZcQmEJgn3Kh55ho8YFiVQFuD7UDirmC">
+           data-fullsize="https://drive.google.com/file/d/1cZcQmEJgn3Kh55ho8YFiVQFuD7UDirmC/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1XiQq_YvEubBBRgXKcpV69DzG1GbbfT59&sz=w1000" 
            alt="Mzansi XXX Content 16" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1XiQq_YvEubBBRgXKcpV69DzG1GbbfT59">
+           data-fullsize="https://drive.google.com/file/d/1XiQq_YvEubBBRgXKcpV69DzG1GbbfT59/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1KD7igKYwnS539c3esh8jRfb-XGoqNaNU&sz=w1000" 
            alt="Mzansi XXX Content 17" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1KD7igKYwnS539c3esh8jRfb-XGoqNaNU">
+           data-fullsize="https://drive.google.com/file/d/1KD7igKYwnS539c3esh8jRfb-XGoqNaNU/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1fEuxRPOMBGY2jl2qpNqICdfWL6WsnP3H&sz=w1000" 
            alt="Mzansi XXX Content 18" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1fEuxRPOMBGY2jl2qpNqICdfWL6WsnP3H">
+           data-fullsize="https://drive.google.com/file/d/1fEuxRPOMBGY2jl2qpNqICdfWL6WsnP3H/view">
     </div>
   </div>
   <div class="media-grid" id="pic-page4" style="display:none">
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1vT9j3sqsyC-YxHhyayALB8jC3j9FcAWe&sz=w1000" 
            alt="Mzansi XXX Content 19" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1vT9j3sqsyC-YxHhyayALB8jC3j9FcAWe">
+           data-fullsize="https://drive.google.com/file/d/1vT9j3sqsyC-YxHhyayALB8jC3j9FcAWe/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1rPv1Cj2pQaCfCVh-ktwRdH3yoPQNndbO&sz=w1000" 
            alt="Mzansi XXX Content 20" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1rPv1Cj2pQaCfCVh-ktwRdH3yoPQNndbO">
+           data-fullsize="https://drive.google.com/file/d/1rPv1Cj2pQaCfCVh-ktwRdH3yoPQNndbO/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1GYwf8ZKGmtyL6s30PVQa6AuKHeIjHW4b&sz=w1000" 
            alt="Mzansi XXX Content 21" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1GYwf8ZKGmtyL6s30PVQa6AuKHeIjHW4b">
+           data-fullsize="https://drive.google.com/file/d/1GYwf8ZKGmtyL6s30PVQa6AuKHeIjHW4b/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=11UpEv3m6bwx0CLI1FusUNWL4ADvVlOWn&sz=w1000" 
            alt="Mzansi XXX Content 22" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=11UpEv3m6bwx0CLI1FusUNWL4ADvVlOWn">
+           data-fullsize="https://drive.google.com/file/d/11UpEv3m6bwx0CLI1FusUNWL4ADvVlOWn/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=11VzK7WiO17rRD57GlAIHSFdvk-WjXZ4O&sz=w1000" 
            alt="Mzansi XXX Content 23" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=11VzK7WiO17rRD57GlAIHSFdvk-WjXZ4O">
+           data-fullsize="https://drive.google.com/file/d/11VzK7WiO17rRD57GlAIHSFdvk-WjXZ4O/view">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1YQjr6jofxVCemxNmGw499F0mNrjNITus&sz=w1000" 
            alt="Mzansi XXX Content 24" 
-           data-fullsize="https://drive.google.com/uc?export=view&id=1YQjr6jofxVCemxNmGw499F0mNrjNITus">
+           data-fullsize="https://drive.google.com/file/d/1YQjr6jofxVCemxNmGw499F0mNrjNITus/view">
     </div>
   </div>
   <div class="nav-btns">
     <button id="pic-prev" disabled>Previous</button>
-    <span class="page-indicator"><span class="pic-page">1</span>/4</span>
+    <span id="pic-indicator" class="page-indicator">1/4</span>
     <button id="pic-next">Next</button>
   </div>
 </div>
@@ -474,16 +472,16 @@
   </div>
 </footer>
 
-<!-- Image Viewer -->
-<div id="image-viewer">
-  <span class="close-viewer" onclick="hideImage()">×</span>
+<!-- Image Viewer (unchanged behavior) -->
+<div id="image-viewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; overflow: auto;">
+  <span class="close-viewer" style="position:fixed; top:20px; right:20px; color:white; font-size:30px; cursor:pointer; z-index:1001;" onclick="hideImage()">×</span>
   <div style="display:flex; justify-content:center; align-items:center; min-height:100%;">
-    <img id="fullsize-image" onclick="zoomImage()">
+    <img id="fullsize-image" style="max-width:2000px; max-height:2000px; cursor:zoom-in; transition: transform 0.25s ease;" onclick="zoomImage()">
   </div>
 </div>
 
 <script>
-// 1. IMAGE VIEWER (working version)
+// IMAGE VIEWER
 let isZoomed = false;
 const fullsizeImg = document.getElementById('fullsize-image');
 
@@ -500,6 +498,8 @@ function showImage(url) {
 function hideImage() {
   document.getElementById('image-viewer').style.display = 'none';
   document.body.style.overflow = 'auto';
+  // clear src to stop downloads/animation if needed
+  fullsizeImg.src = '';
 }
 
 function zoomImage() {
@@ -508,47 +508,32 @@ function zoomImage() {
   isZoomed = !isZoomed;
 }
 
-// 2. PAGINATION SYSTEMS (fixed version)
-// Pictures pagination
+// PICTURE PAGINATION
 let currentPicPage = 1;
-const totalPicPages = 4;
+const totalPicPages = 4; // adjusted to 4 pages
 
 function updatePicPagination() {
-  // Update page display
-  document.querySelector('.pic-page').textContent = currentPicPage;
-  
+  // Update numeric heading (if you want both)
+  const picPageHeading = document.querySelector('.pic-page');
+  if (picPageHeading) picPageHeading.textContent = currentPicPage;
+
+  // Update page indicator for pictures only
+  const picIndicator = document.getElementById('pic-indicator');
+  if (picIndicator) picIndicator.textContent = `${currentPicPage}/${totalPicPages}`;
+
   // Toggle page visibility
   for (let i = 1; i <= totalPicPages; i++) {
-    document.getElementById(`pic-page${i}`).style.display = 
-      (i === currentPicPage) ? 'grid' : 'none';
+    const el = document.getElementById(`pic-page${i}`);
+    if (el) el.style.display = (i === currentPicPage) ? 'grid' : 'none';
   }
-  
+
   // Update button states
-  document.getElementById('pic-prev').disabled = currentPicPage === 1;
-  document.getElementById('pic-next').disabled = currentPicPage === totalPicPages;
+  const prevBtn = document.getElementById('pic-prev');
+  const nextBtn = document.getElementById('pic-next');
+  if (prevBtn) prevBtn.disabled = currentPicPage === 1;
+  if (nextBtn) nextBtn.disabled = currentPicPage === totalPicPages;
 }
 
-// Videos pagination
-let currentVideoPage = 1;
-const totalVideoPages = 4;
-
-function updateVideoPagination() {
-  // Update page display
-  document.querySelector('.video-page').textContent = currentVideoPage;
-  
-  // Toggle page visibility
-  for (let i = 1; i <= totalVideoPages; i++) {
-    document.getElementById(`video-page${i}`).style.display = 
-      (i === currentVideoPage) ? 'grid' : 'none';
-  }
-  
-  // Update button states
-  document.getElementById('video-prev').disabled = currentVideoPage === 1;
-  document.getElementById('video-next').disabled = currentVideoPage === totalVideoPages;
-}
-
-// 3. EVENT LISTENERS
-// Picture navigation
 document.getElementById('pic-next').addEventListener('click', function() {
   if (currentPicPage < totalPicPages) {
     currentPicPage++;
@@ -563,45 +548,73 @@ document.getElementById('pic-prev').addEventListener('click', function() {
   }
 });
 
-// Video navigation
-document.getElementById('video-next').addEventListener('click', function() {
-  if (currentVideoPage < totalVideoPages) {
-    currentVideoPage++;
-    updateVideoPagination();
-  }
-});
-
-document.getElementById('video-prev').addEventListener('click', function() {
-  if (currentVideoPage > 1) {
-    currentVideoPage--;
-    updateVideoPagination();
-  }
-});
-
-// Image click handlers
+// IMAGE CLICK TO VIEW (use data-fullsize if available, otherwise fallback to src)
 document.querySelectorAll('.image-container img').forEach(img => {
-  img.addEventListener('click', function() {
-    showImage(this.dataset.fullsize);
+  img.addEventListener('click', function(e) {
+    const url = this.dataset.fullsize || this.src;
+    showImage(url);
   });
 });
 
-// Close when clicking outside image
+// Close viewer clicking outside image
 document.getElementById('image-viewer').addEventListener('click', function(e) {
-  if (e.target === this) {
-    hideImage();
-  }
+  if (e.target === this) hideImage();
 });
 
-// Close with ESC key
+// ESC key closes viewer
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    hideImage();
-  }
+  if (e.key === 'Escape') hideImage();
 });
 
-// Initialize both paginations
+// Initialize picture pagination
 updatePicPagination();
-updateVideoPagination();
+
+
+// VIDEO PAGINATION (4 pages)
+let currentVideoPage = 1;
+const totalVideoPages = 4;
+const videoPrevBtn = document.getElementById('video-prev');
+const videoNextBtn = document.getElementById('video-next');
+
+function updateVideoPage() {
+  // Hide/show video pages
+  for (let i = 1; i <= totalVideoPages; i++) {
+    const el = document.getElementById(`video-page${i}`);
+    if (el) el.style.display = (i === currentVideoPage) ? 'grid' : 'none';
+  }
+
+  // Update numeric heading if present
+  const videoPageHeading = document.querySelector('.video-page');
+  if (videoPageHeading) videoPageHeading.textContent = currentVideoPage;
+
+  // Update video indicator
+  const videoIndicator = document.getElementById('video-indicator');
+  if (videoIndicator) videoIndicator.textContent = `${currentVideoPage}/${totalVideoPages}`;
+
+  // Update buttons
+  if (videoPrevBtn) videoPrevBtn.disabled = currentVideoPage === 1;
+  if (videoNextBtn) videoNextBtn.disabled = currentVideoPage === totalVideoPages;
+}
+
+if (videoPrevBtn) {
+  videoPrevBtn.addEventListener('click', () => {
+    if (currentVideoPage > 1) {
+      currentVideoPage--;
+      updateVideoPage();
+    }
+  });
+}
+if (videoNextBtn) {
+  videoNextBtn.addEventListener('click', () => {
+    if (currentVideoPage < totalVideoPages) {
+      currentVideoPage++;
+      updateVideoPage();
+    }
+  });
+}
+
+// Initialize video pagination
+updateVideoPage();
 </script>
 </body>
 </html>
