@@ -479,84 +479,121 @@
   </div>
 </footer>
 
-  <script>
-    // Image viewer with zoom functionality
-    let isZoomed = false;
-    const fullsizeImg = document.getElementById('fullsize-image');
+<script>
+// Image viewer with zoom functionality
+let isZoomed = false;
+const fullsizeImg = document.getElementById('fullsize-image');
 
-    function showImage(url) {
-      const viewer = document.getElementById('image-viewer');
-      viewer.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-      fullsizeImg.src = url;
-      fullsizeImg.style.transform = 'scale(1)';
-      isZoomed = false;
-      fullsizeImg.style.cursor = 'zoom-in';
-    }
+function showImage(url) {
+  const viewer = document.getElementById('image-viewer');
+  viewer.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  fullsizeImg.src = url;
+  fullsizeImg.style.transform = 'scale(1)';
+  isZoomed = false;
+  fullsizeImg.style.cursor = 'zoom-in';
+}
 
-    function hideImage() {
-      document.getElementById('image-viewer').style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
+function hideImage() {
+  document.getElementById('image-viewer').style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
 
-    function zoomImage(event) {
-      event.stopPropagation();
-      if (isZoomed) {
-        fullsizeImg.style.transform = 'scale(1)';
-        fullsizeImg.style.cursor = 'zoom-in';
-      } else {
-        fullsizeImg.style.transform = 'scale(1.5)';
-        fullsizeImg.style.cursor = 'zoom-out';
-      }
-      isZoomed = !isZoomed;
-    }
+function zoomImage(event) {
+  event.stopPropagation(); // Prevent event from bubbling to parent
+  if (isZoomed) {
+    fullsizeImg.style.transform = 'scale(1)';
+    fullsizeImg.style.cursor = 'zoom-in';
+  } else {
+    fullsizeImg.style.transform = 'scale(1.5)';
+    fullsizeImg.style.cursor = 'zoom-out';
+  }
+  isZoomed = !isZoomed;
+}
 
-    // Click handler for images
-    document.querySelectorAll('.image-container img').forEach(img => {
-      img.addEventListener('click', function() {
-        showImage(this.dataset.fullsize);
-      });
-    });
+// Enhanced click handler for images
+function setupImageHandlers() {
+  document.querySelectorAll('.image-container img').forEach(img => {
+    // Ensure we don't add duplicate event listeners
+    img.removeEventListener('click', handleImageClick);
+    img.addEventListener('click', handleImageClick);
+  });
+}
 
-    // Close viewer when clicking outside image
-    document.getElementById('image-viewer').addEventListener('click', function(e) {
-      if (e.target === this) {
-        hideImage();
-      }
-    });
+function handleImageClick() {
+  showImage(this.dataset.fullsize || this.src);
+}
 
-    // Close with ESC key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        hideImage();
-      }
-    });
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  setupImageHandlers();
+  
+  // Handle pagination changes
+  document.querySelectorAll('.nav-btns button').forEach(btn => {
+    btn.addEventListener('click', setupImageHandlers);
+  });
+});
 
-    // Picture pagination
-    let currentPicPage = 1;
-    document.getElementById('pic-next').addEventListener('click', function() {
-      if (currentPicPage < 2) {
-        document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
-        currentPicPage++;
-        document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
-        document.getElementById('pic-prev').disabled = false;
-        document.querySelector('.pic-page').textContent = currentPicPage;
-        document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
-        if (currentPicPage === 2) this.disabled = true;
-      }
-    });
+// Close viewer when clicking outside image
+document.getElementById('image-viewer').addEventListener('click', function(e) {
+  if (e.target === this) {
+    hideImage();
+  }
+});
 
-    document.getElementById('pic-prev').addEventListener('click', function() {
-      if (currentPicPage > 1) {
-        document.getElementById(`pic-page${currentPicPage}`).style.display = 'none';
-        currentPicPage--;
-        document.getElementById(`pic-page${currentPicPage}`).style.display = 'grid';
-        document.getElementById('pic-next').disabled = false;
-        document.querySelector('.pic-page').textContent = currentPicPage;
-        document.querySelector('.page-indicator').textContent = `${currentPicPage}/2`;
-        if (currentPicPage === 1) this.disabled = true;
-      }
-    });
+// Close with ESC key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    hideImage();
+  }
+});
+
+// Fixed pagination for 4 pages
+let currentPicPage = 1;
+const totalPicPages = 4;
+const picPrevBtn = document.getElementById('pic-prev');
+const picNextBtn = document.getElementById('pic-next');
+
+function updatePicPage() {
+  // Hide all picture pages
+  for (let i = 1; i <= totalPicPages; i++) {
+    const page = document.getElementById(`pic-page${i}`);
+    if (page) page.style.display = 'none';
+  }
+  
+  // Show current page
+  const currentPage = document.getElementById(`pic-page${currentPicPage}`);
+  if (currentPage) currentPage.style.display = 'grid';
+  
+  // Update indicators
+  document.querySelector('.pic-page').textContent = currentPicPage;
+  document.querySelector('.page-indicator').textContent = `${currentPicPage}/${totalPicPages}`;
+  
+  // Update button states
+  picPrevBtn.disabled = currentPicPage === 1;
+  picNextBtn.disabled = currentPicPage === totalPicPages;
+  
+  // Reattach image handlers after page change
+  setupImageHandlers();
+}
+
+// Initialize pagination
+updatePicPage();
+
+// Button event listeners
+picPrevBtn.addEventListener('click', () => {
+  if (currentPicPage > 1) {
+    currentPicPage--;
+    updatePicPage();
+  }
+});
+
+picNextBtn.addEventListener('click', () => {
+  if (currentPicPage < totalPicPages) {
+    currentPicPage++;
+    updatePicPage();
+  }
+});
 
 // Video pagination for 4 pages
 let currentVideoPage = 1;
