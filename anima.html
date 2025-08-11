@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pictures Section</title>
+<style>
+  .media-section {
+    max-width: 900px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+  }
+  .media-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .image-container {
+    flex: 1 0 30%;
+    cursor: pointer;
+  }
+  .image-container img {
+    max-width: 100%;
+    border-radius: 6px;
+    transition: transform 0.3s ease;
+  }
+  .image-container img:hover {
+    transform: scale(1.05);
+  }
+  .nav-btns {
+    margin-top: 15px;
+    text-align: center;
+  }
+  .nav-btns button {
+    padding: 8px 16px;
+    margin: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .nav-btns button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .page-indicator {
+    font-weight: bold;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Pictures Section -->
+<div class="media-section">
+  <h2>Pictures - Page <span class="pic-page">1</span></h2>
+
+  <div class="media-grid" id="pic-page1">
+    <div class="image-container">
+      <img src="https://drive.google.com/uc?export=view&id=16FMwM2zVyURXJ7gS60EQjRLKnaQPbX6N" 
+           alt="Mzansi XXX Content 1" 
+           data-fullsize="https://drive.google.com/uc?export=view&id=16FMwM2zVyURXJ7gS60EQjRLKnaQPbX6N">
+    </div>
+    <div class="image-container">
+      <img src="https://drive.google.com/uc?export=view&id=1ANVWkkoo19_KBYUqP-EoRY_VqWQrVwsh" 
+           alt="Mzansi XXX Content 2" 
+           data-fullsize="https://drive.google.com/uc?export=view&id=1ANVWkkoo19_KBYUqP-EoRY_VqWQrVwsh">
+    </div>
+    <div class="image-container">
+      <img src="https://drive.google.com/uc?export=view&id=14-p16Gi0u38FxBmV61i0AJAhNZYW4Gqq" 
+           alt="Mzansi XXX Content 3" 
+           data-fullsize="https://drive.google.com/uc?export=view&id=14-p16Gi0u38FxBmV61i0AJAhNZYW4Gqq">
+    </div>
+    <!-- Add more images as needed -->
+  </div>
+
+  <div class="media-grid" id="pic-page2" style="display:none">
+    <div class="image-container">
+      <img src="https://drive.google.com/uc?export=view&id=1r4Y0KoxskP_ZBEMwjJKcc0SnVBA5ee8g" 
+           alt="Mzansi XXX Content 7" 
+           data-fullsize="https://drive.google.com/uc?export=view&id=1r4Y0KoxskP_ZBEMwjJKcc0SnVBA5ee8g">
+    </div>
+    <div class="image-container">
+      <img src="https://drive.google.com/uc?export=view&id=1rM0S23pQhjWW4gzZ9F8CU_vWatT616IZ" 
+           alt="Mzansi XXX Content 8" 
+           data-fullsize="https://drive.google.com/uc?export=view&id=1rM0S23pQhjWW4gzZ9F8CU_vWatT616IZ">
+    </div>
+    <!-- Add more images as needed -->
+  </div>
+
+  <!-- Add other pages similarly -->
+
+  <div class="nav-btns">
+    <button id="pic-prev" disabled>Previous</button>
+    <span id="pic-indicator" class="page-indicator">1/2</span>
+    <button id="pic-next">Next</button>
+  </div>
+</div>
+
+<script>
+  const totalPages = 2; // adjust to number of pages you have
+  let currentPage = 1;
+
+  const picPrevBtn = document.getElementById('pic-prev');
+  const picNextBtn = document.getElementById('pic-next');
+  const picIndicator = document.getElementById('pic-indicator');
+
+  function showPage(page) {
+    for (let i = 1; i <= totalPages; i++) {
+      const pageDiv = document.getElementById('pic-page' + i);
+      pageDiv.style.display = i === page ? 'flex' : 'none';
+    }
+    document.querySelector('.pic-page').textContent = page;
+    picIndicator.textContent = `${page}/${totalPages}`;
+    picPrevBtn.disabled = page === 1;
+    picNextBtn.disabled = page === totalPages;
+  }
+
+  picPrevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      showPage(currentPage);
+    }
+  });
+
+  picNextBtn.addEventListener('click', () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      showPage(currentPage);
+    }
+  });
+
+  // Click on thumbnail to open full image in new tab
+  document.querySelectorAll('.image-container img').forEach(img => {
+    img.addEventListener('click', () => {
+      const fullUrl = img.getAttribute('data-fullsize');
+      window.open(fullUrl, '_blank');
+    });
+  });
+
+  // Initialize first page
+  showPage(currentPage);
+</script>
+
+</body>
+</html>
