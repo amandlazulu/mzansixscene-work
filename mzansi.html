@@ -511,12 +511,10 @@ function zoomImage(event) {
   isZoomed = !isZoomed;
 }
 
-// Enhanced click handler for images
-function setupImageHandlers() {
-  document.querySelectorAll('.image-container img').forEach(img => {
-    // Ensure we don't add duplicate event listeners
-    img.removeEventListener('click', handleImageClick);
-    img.addEventListener('click', handleImageClick);
+// Click handler for images
+document.querySelectorAll('.image-container img').forEach(img => {
+  img.addEventListener('click', function() {
+    showImage(this.dataset.fullsize);
   });
 }
 
