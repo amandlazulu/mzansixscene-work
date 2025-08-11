@@ -483,15 +483,41 @@
 </div>
 
 <script>
-// Picture Pagination (FIXED VERSION - minimal changes)
+// 1. IMAGE VIEWER (working version)
+let isZoomed = false;
+const fullsizeImg = document.getElementById('fullsize-image');
+
+function showImage(url) {
+  const viewer = document.getElementById('image-viewer');
+  viewer.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  fullsizeImg.src = url;
+  fullsizeImg.style.transform = 'scale(1)';
+  isZoomed = false;
+  fullsizeImg.style.cursor = 'zoom-in';
+}
+
+function hideImage() {
+  document.getElementById('image-viewer').style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+function zoomImage() {
+  fullsizeImg.style.transform = isZoomed ? 'scale(1)' : 'scale(1.5)';
+  fullsizeImg.style.cursor = isZoomed ? 'zoom-in' : 'zoom-out';
+  isZoomed = !isZoomed;
+}
+
+// 2. PAGINATION SYSTEMS (fixed version)
+// Pictures pagination
 let currentPicPage = 1;
 const totalPicPages = 4;
 
 function updatePicPagination() {
-  // Update ONLY the picture page indicator
+  // Update page display
   document.querySelector('.pic-page').textContent = currentPicPage;
   
-  // Toggle picture pages
+  // Toggle page visibility
   for (let i = 1; i <= totalPicPages; i++) {
     document.getElementById(`pic-page${i}`).style.display = 
       (i === currentPicPage) ? 'grid' : 'none';
@@ -501,21 +527,6 @@ function updatePicPagination() {
   document.getElementById('pic-prev').disabled = currentPicPage === 1;
   document.getElementById('pic-next').disabled = currentPicPage === totalPicPages;
 }
-
-// Button handlers (unchanged from your working version)
-document.getElementById('pic-next').addEventListener('click', function() {
-  if (currentPicPage < totalPicPages) {
-    currentPicPage++;
-    updatePicPagination();
-  }
-});
-
-document.getElementById('pic-prev').addEventListener('click', function() {
-  if (currentPicPage > 1) {
-    currentPicPage--;
-    updatePicPagination();
-  }
-});
 
 // Videos pagination
 let currentVideoPage = 1;
