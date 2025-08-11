@@ -266,12 +266,11 @@
 <!-- Pictures Section -->
 <div class="media-section">
   <h2>Pictures - Page <span class="pic-page">1</span></h2>
-<div class="media-grid">
-  <div class="image-container">
-    <img src="https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t" 
-         alt="Picture 1" 
-         onclick="openViewer('https://drive.google.com/uc?export=view&id=1g9pvwB0PKSVQXNYSdqJlkawWkjt37T9t')">
-  </div>
+  <div class="media-grid" id="pic-page1">
+    <div class="image-container">
+      <img src="https://drive.google.com/thumbnail?id=16FMwM2zVyURXJ7gS60EQjRLKnaQPbX6N&sz=w1000" 
+           alt="Mzansi XXX Content 1" 
+           data-fullsize="https://drive.google.com/uc?export=view&id=16FMwM2zVyURXJ7gS60EQjRLKnaQPbX6N">
     </div>
     <div class="image-container">
       <img src="https://drive.google.com/thumbnail?id=1ANVWkkoo19_KBYUqP-EoRY_VqWQrVwsh&sz=w1000" 
@@ -484,41 +483,15 @@
 </div>
 
 <script>
-// 1. IMAGE VIEWER (working version)
-let isZoomed = false;
-const fullsizeImg = document.getElementById('fullsize-image');
-
-function showImage(url) {
-  const viewer = document.getElementById('image-viewer');
-  viewer.style.display = 'block';
-  document.body.style.overflow = 'hidden';
-  fullsizeImg.src = url;
-  fullsizeImg.style.transform = 'scale(1)';
-  isZoomed = false;
-  fullsizeImg.style.cursor = 'zoom-in';
-}
-
-function hideImage() {
-  document.getElementById('image-viewer').style.display = 'none';
-  document.body.style.overflow = 'auto';
-}
-
-function zoomImage() {
-  fullsizeImg.style.transform = isZoomed ? 'scale(1)' : 'scale(1.5)';
-  fullsizeImg.style.cursor = isZoomed ? 'zoom-in' : 'zoom-out';
-  isZoomed = !isZoomed;
-}
-
-// 2. PAGINATION SYSTEMS (fixed version)
-// Pictures pagination
+// Picture Pagination (FIXED VERSION - minimal changes)
 let currentPicPage = 1;
 const totalPicPages = 4;
 
 function updatePicPagination() {
-  // Update page display
+  // Update ONLY the picture page indicator
   document.querySelector('.pic-page').textContent = currentPicPage;
   
-  // Toggle page visibility
+  // Toggle picture pages
   for (let i = 1; i <= totalPicPages; i++) {
     document.getElementById(`pic-page${i}`).style.display = 
       (i === currentPicPage) ? 'grid' : 'none';
@@ -528,6 +501,21 @@ function updatePicPagination() {
   document.getElementById('pic-prev').disabled = currentPicPage === 1;
   document.getElementById('pic-next').disabled = currentPicPage === totalPicPages;
 }
+
+// Button handlers (unchanged from your working version)
+document.getElementById('pic-next').addEventListener('click', function() {
+  if (currentPicPage < totalPicPages) {
+    currentPicPage++;
+    updatePicPagination();
+  }
+});
+
+document.getElementById('pic-prev').addEventListener('click', function() {
+  if (currentPicPage > 1) {
+    currentPicPage--;
+    updatePicPagination();
+  }
+});
 
 // Videos pagination
 let currentVideoPage = 1;
